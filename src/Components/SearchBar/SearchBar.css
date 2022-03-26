@@ -1,0 +1,23 @@
+.searchbar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  outline: none;
+  padding: 12px;
+  width: 20rem;
+}
+.search-button {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.5rem;
+  position: absolute;
+  right: 0.5rem;
+}
+
+.search-button:hover {
+  background-color: var(--classic-color);
+}
