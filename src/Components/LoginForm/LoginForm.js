@@ -13,7 +13,7 @@ const LoginForm = () => {
 
         <label>
           <span className="input-label"> Password </span>
-          <input required minlength="5" type="password" />
+          <input required minLength="5" type="password" />
         </label>
         <span className="validation-error"></span>
         <button className="btn btn-primary-outline">Login</button>
