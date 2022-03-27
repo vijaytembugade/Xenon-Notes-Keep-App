@@ -39,7 +39,7 @@
   cursor: pointer;
 }
 .homepage-desc-images img {
-  width: 25rem;
+  width: 15rem;
   border: 3px solid var(--secondary-color);
   padding: 1rem;
   background-color: var(--gray-color);
@@ -55,6 +55,43 @@
 
 .start-now:hover {
   box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
+
+.secondary-homepage-part {
+  height: fit-content;
+  background-image: -webkit-linear-gradient(
+    260deg,
+    var(--primary-color) 50%,
+    var(--classic-color) 50%
+  );
+  padding-bottom: 1rem;
+}
+
+.idea-cards {
+  width: 25rem;
+  padding: 2rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: "Acme";
+  font-size: 2rem;
+  background-color: var(--classic-color);
+}
+
+.idea-cards:hover {
+  transform: scale(1.01);
+  background-color: var(--light-color);
+}
+
+.secondary-part-image {
+  width: 20rem;
+}
+.homepage-secondary-heading {
+  font-size: 4rem;
+  padding: 5rem;
+}
+.secondary-tagline {
+  font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 768px) {
