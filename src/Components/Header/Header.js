@@ -8,10 +8,12 @@ function Header() {
   return (
     <>
       <nav className="text-dark ">
-        <div className="nav-brand gray-bg-color">
-          <img className="logo" src="/logo.png" alt="Xenon" />
-          <Logo />
-        </div>
+        <Link to="/">
+          <div className="nav-brand gray-bg-color">
+            <img className="logo" src="/logo.png" alt="Xenon" />
+            <Logo />
+          </div>
+        </Link>
 
         <div className="searchbar">
           <SearchBar />

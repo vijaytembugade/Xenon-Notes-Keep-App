@@ -11,8 +11,9 @@ function Signup() {
       <div className="title">Signup to Manage your daily tasks!</div>
       <SignupForm />
       <strong>
-        Already have an account?{" "}
+        Already have an account?
         <Link to="/login" className="primary-text">
+          {" "}
           Login
         </Link>
       </strong>
