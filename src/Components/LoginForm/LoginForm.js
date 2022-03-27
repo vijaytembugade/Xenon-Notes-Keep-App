@@ -1,18 +1,44 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "../../Constants";
 import { useAuth } from "../../Contexts";
+import Loader from "../Loader/Loader";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { authState, loginService } = useAuth();
+  const {
+    authState: { isLoggedIn, loading },
+    authDispatch,
+  } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
-    loginService(email, password);
-
-    authState.isLoggedIn && navigate("/");
+    try {
+      if (email === "" || password === "") {
+        throw new Error("Email or Password could not be empty");
+      }
+      authDispatch({ type: LOGIN_REQUEST });
+      const responce = await axios.post("/api/auth/login", {
+        email: email,
+        password: password,
+      });
+      localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
+      localStorage.setItem("AUTH_USER", responce.data.foundUser.email);
+      authDispatch({
+        type: LOGIN_SUCCESS,
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      authDispatch({
+        type: LOGIN_FAIL,
+        payload: error,
+      });
+    }
   }
 
   function handelGuestLogin() {
@@ -22,39 +48,38 @@ const LoginForm = () => {
 
   return (
     <>
-      <form className="form-group" onSubmit={handleLogin}>
-        <h2>Login</h2>
+      {loading && <Loader />}
+      {!loading && (
+        <form className="form-group" onSubmit={handleLogin}>
+          <h2>Login</h2>
 
-        <label>
-          <span className="input-label"> Email </span>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
+          <label>
+            <span className="input-label"> Email </span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
 
-        <label>
-          <span className="input-label"> Password </span>
-          <input
-            minLength="5"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <span className="validation-error"></span>
-        <button type="submit" className="btn btn-primary-outline">
-          Login
-        </button>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          onClick={handelGuestLogin}
-        >
-          Guest Login
-        </button>
-      </form>
+          <label>
+            <span className="input-label"> Password </span>
+            <input
+              minLength="5"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <span className="validation-error"></span>
+          <button type="submit" className="btn btn-primary-outline">
+            Login
+          </button>
+          <button className="btn btn-primary" onClick={handelGuestLogin}>
+            Guest Login
+          </button>
+        </form>
+      )}
     </>
   );
 };

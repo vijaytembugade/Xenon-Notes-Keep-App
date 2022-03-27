@@ -2,17 +2,20 @@ import React from "react";
 import { useAuth } from "../../Contexts";
 import { useNavigate } from "react-router-dom";
 import "./UserDetails.css";
+import { LOGOUT } from "../../Constants";
 
 const UserDetails = () => {
   const {
     authState: { user },
-    logoutService,
+    authDispatch,
   } = useAuth();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logoutService();
+    localStorage.removeItem("AUTH_TOKEN");
+    localStorage.removeItem("AUTH_USER");
+    authDispatch({ type: LOGOUT });
     navigate("/");
   };
   return (
