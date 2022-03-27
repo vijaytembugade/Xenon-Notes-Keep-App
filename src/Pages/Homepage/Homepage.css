@@ -120,6 +120,10 @@
   .heading-small:last-child {
     align-self: center;
   }
+  .idea-cards {
+    width: 20rem;
+    padding: 1rem;
+  }
 }
 @media only screen and (max-width: 480px) {
   .homepage-heading {
@@ -135,5 +139,9 @@
   }
   .homepage-image > img {
     width: 18rem;
+  }
+  .idea-cards {
+    width: 15rem;
+    padding: 1rem;
   }
 }
