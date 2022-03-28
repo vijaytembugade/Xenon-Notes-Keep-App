@@ -24,26 +24,10 @@ const AllNotes = () => {
       <div className="note-editor-buttons">
         <span>Select Color</span>
         <div className="note-color-selector">
-          <input
-            type="radio"
-            className="secondary-radio-text note-color-representator"
-            name="color"
-          />
-          <input
-            type="radio"
-            className="ternary-radio-text note-color-representator"
-            name="color"
-          />
-          <input
-            type="radio"
-            className="success-radio-text note-color-representator"
-            name="color"
-          />
-          <input
-            type="radio"
-            className="warning-radio-text note-color-representator"
-            name="color"
-          />
+          <input type="radio" className="secondary-radio-text" name="color" />
+          <input type="radio" className="ternary-radio-text" name="color" />
+          <input type="radio" className="success-radio-text" name="color" />
+          <input type="radio" className="warning-radio-text" name="color" />
         </div>
 
         <button className="btn btn-block btn-primary-outline">
