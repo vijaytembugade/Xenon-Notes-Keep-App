@@ -16,13 +16,16 @@ nav {
   border-radius: 0;
   gap: 1rem;
 }
+.nav-menu {
+  margin-left: auto;
+}
 
 .logo {
   width: 3rem;
 }
 
 .searchbar {
-  margin: 0 auto;
+  margin: 0 2rem;
 }
 
 .btn-small {
@@ -31,5 +34,16 @@ nav {
 @media only screen and (max-width: 768px) {
   .nav-brand {
     margin-left: 0;
+  }
+
+  .nav-item {
+    display: flex;
+  }
+  .nav-item > span {
+    font-size: 24px;
+  }
+
+  .logo {
+    width: 2rem;
   }
 }

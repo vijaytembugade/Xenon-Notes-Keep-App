@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../Contexts";
 import Logo from "../Logo/Logo";
 import SearchBar from "../SearchBar/SearchBar";
@@ -7,24 +7,39 @@ import "./Header.css";
 
 function Header() {
   const {
-    authState: { isLoggedIn, user },
+    authState: { isLoggedIn },
   } = useAuth();
+
+  const navMenuForbiddenPaths = ["/", "/login", "/signup"];
+
+  const { pathname } = useLocation();
+
+  console.log(pathname);
 
   return (
     <>
       <nav className="text-dark ">
-        <Link to="/">
-          <div className="nav-brand gray-bg-color">
-            <img className="logo" src="/logo.png" alt="Xenon" />
+        <div className="nav-brand">
+          <img className="logo" src="/logo.png" alt="Xenon" />
+          <Link to="/">
             <Logo />
-          </div>
-        </Link>
-
-        <div className="searchbar">
-          <SearchBar />
+          </Link>
         </div>
 
+        {!navMenuForbiddenPaths.includes(pathname) && (
+          <div className="searchbar">
+            <SearchBar />
+          </div>
+        )}
+
         <ul className="nav-menu">
+          {isLoggedIn && (
+            <li>
+              <NavLink to="/notes" className="nav-item">
+                <span class="material-icons md-36">text_snippet</span>
+              </NavLink>
+            </li>
+          )}
           {isLoggedIn && (
             <li>
               <NavLink to="/user-details" className="nav-item">
@@ -32,6 +47,7 @@ function Header() {
               </NavLink>
             </li>
           )}
+
           {!isLoggedIn && (
             <li>
               <NavLink to="/login" className="nav-item">
@@ -50,9 +66,9 @@ function Header() {
           )}
         </ul>
 
-        <div id="hamburger" className="hamburger">
+        {/* <div id="hamburger" className="hamburger">
           <span className="material-icons md-36"> menu </span>
-        </div>
+        </div> */}
 
         {/* <div className="responsive-navbar display-navbar">
           <div id="closeNavbar" className="danger-text">

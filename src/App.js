@@ -5,6 +5,7 @@ import Header from "./Components/Header/Header";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Homepage from "./Pages/Homepage/Homepage";
 import Login from "./Pages/Login/Login";
+import Notes from "./Pages/Notes/Notes";
 import Signup from "./Pages/Signup/Signup";
 import UserDetails from "./Pages/UserDetails/UserDetails";
 
@@ -22,6 +23,14 @@ function App() {
             element={
               <PrivateRoute>
                 <UserDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/notes/*"
+            element={
+              <PrivateRoute>
+                <Notes />
               </PrivateRoute>
             }
           />

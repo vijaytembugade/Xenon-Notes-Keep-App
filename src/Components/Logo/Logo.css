@@ -9,3 +9,12 @@
 .logo-basic-text {
   text-shadow: 0 0 2px var(--classic-color), 0 0 5px var(--classic-color);
 }
+
+@media only screen and (max-width: 768px) {
+  .logo-text {
+    font-size: 1.5rem;
+  }
+  .logo-x {
+    font-size: 2rem;
+  }
+}
