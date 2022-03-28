@@ -6,20 +6,29 @@ const NoteSidebar = () => {
   return (
     <div className="notesidebar">
       <ul className="notesidebar-list">
-        <NavLink to="/notes/all-notes">
+        <NavLink
+          to="/notes/all-notes"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           <li>
             <span class="material-icons">text_snippet</span>
             <span> Notes</span>
           </li>
         </NavLink>
-        <NavLink to="/notes/archived">
+        <NavLink
+          to="/notes/archived"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           <li>
             <span class="material-icons">archive</span>
             <span>Archied</span>
           </li>
         </NavLink>
 
-        <NavLink to="/notes/trashed">
+        <NavLink
+          to="/notes/trashed"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           <li>
             <span class="material-icons">delete</span>
             <span>Trash</span>

@@ -36,14 +36,14 @@ function Header() {
           {isLoggedIn && (
             <li>
               <NavLink to="/notes" className="nav-item">
-                <span class="material-icons md-36">text_snippet</span>
+                <span class="material-icons md-24">text_snippet</span>
               </NavLink>
             </li>
           )}
           {isLoggedIn && (
             <li>
               <NavLink to="/user-details" className="nav-item">
-                <span className="material-icons md-36 ">account_circle</span>
+                <span className="material-icons md-24 ">account_circle</span>
               </NavLink>
             </li>
           )}
