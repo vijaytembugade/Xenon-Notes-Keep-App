@@ -1,0 +1,147 @@
+.homepage {
+  height: fit-content;
+  background-image: -webkit-linear-gradient(
+    -85deg,
+    var(--classic-color) 50%,
+    var(--primary-color) 50%
+  );
+  padding-bottom: 1rem;
+}
+.homepage-heading {
+  padding: 2rem 15rem;
+  font-family: "Acme", sans-serif;
+  gap: 1rem;
+}
+
+.homepage-text {
+  font-size: 2rem;
+  padding: 3rem;
+}
+.heading-large {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 5rem;
+  word-spacing: 1rem;
+}
+.heading-small {
+  font-size: 2rem;
+}
+.heading-small:first-child {
+  align-self: flex-start;
+}
+.heading-small:last-child {
+  align-self: flex-end;
+}
+
+.homepage-image > img {
+  width: 50rem;
+  margin: 2rem;
+  cursor: pointer;
+}
+.homepage-desc-images img {
+  width: 15rem;
+  border: 3px solid var(--secondary-color);
+  padding: 1rem;
+  background-color: var(--gray-color);
+  border-radius: 3rem;
+  margin: 2rem;
+}
+
+.start-now {
+  padding: 1rem;
+  width: 20rem;
+  font-size: 1.4rem;
+}
+
+.start-now:hover {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
+
+.secondary-homepage-part {
+  height: fit-content;
+  background-image: -webkit-linear-gradient(
+    260deg,
+    var(--primary-color) 50%,
+    var(--classic-color) 50%
+  );
+  padding-bottom: 1rem;
+}
+
+.idea-cards {
+  width: 25rem;
+  padding: 2rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: "Acme";
+  font-size: 2rem;
+  background-color: var(--classic-color);
+}
+
+.idea-cards:hover {
+  transform: scale(1.01);
+  background-color: var(--light-color);
+}
+
+.secondary-part-image {
+  width: 20rem;
+}
+.homepage-secondary-heading {
+  font-size: 4rem;
+  padding: 5rem;
+}
+.secondary-tagline {
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .homepage-text {
+    font-size: 1rem;
+  }
+  .homepage-heading {
+    padding: 2rem 2rem;
+    gap: 1rem;
+  }
+  .heading-large {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+  .heading-small {
+    font-size: 1rem;
+  }
+  .homepage-image > img {
+    width: 25rem;
+    margin: 1rem;
+    cursor: pointer;
+  }
+  .heading-small:first-child {
+    align-self: center;
+  }
+  .heading-small:last-child {
+    align-self: center;
+  }
+  .idea-cards {
+    width: 20rem;
+    padding: 1rem;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .homepage-heading {
+    padding: 1rem 3rem;
+    gap: 1rem;
+  }
+  .heading-large {
+    font-size: 1.2rem;
+    word-spacing: 0.5rem;
+  }
+  .heading-small {
+    font-size: 1rem;
+  }
+  .homepage-image > img {
+    width: 18rem;
+  }
+  .idea-cards {
+    width: 15rem;
+    padding: 1rem;
+  }
+}

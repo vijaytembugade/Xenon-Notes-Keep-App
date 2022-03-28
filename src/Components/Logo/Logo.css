@@ -1,0 +1,11 @@
+.logo-text {
+  font-family: "Acme", sans-serif;
+  font-size: 2rem;
+}
+.logo-x {
+  font-size: 2.5rem;
+}
+
+.logo-basic-text {
+  text-shadow: 0 0 2px var(--classic-color), 0 0 5px var(--classic-color);
+}

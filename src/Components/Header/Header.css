@@ -1,0 +1,35 @@
+.active-nav-item {
+  color: var(--primary-color);
+}
+
+nav {
+  height: 3rem;
+  padding: 2rem 3rem;
+}
+
+.nav-brand {
+  margin-right: 0;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+  gap: 1rem;
+}
+
+.logo {
+  width: 3rem;
+}
+
+.searchbar {
+  margin: 0 auto;
+}
+
+.btn-small {
+  padding: 0.3rem;
+}
+@media only screen and (max-width: 768px) {
+  .nav-brand {
+    margin-left: 0;
+  }
+}
