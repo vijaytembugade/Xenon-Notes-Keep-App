@@ -2,6 +2,19 @@
   background-color: var(--light-color);
 }
 
+.ql-snow .ql-stroke {
+  stroke: var(--primary-color);
+}
+.ql-toolbar.ql-snow {
+  background-color: var(--light-color);
+}
+.ql-snow .ql-tooltip {
+  background-color: var(--light-color);
+}
+.ql-snow .ql-picker {
+  color: var(--primary-color);
+}
+
 .my-editing-area {
   height: 10rem;
 }

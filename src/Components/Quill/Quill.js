@@ -18,6 +18,7 @@ const Quill = ({ value, setValue }) => {
         { indent: "+1" },
       ],
       ["link", "image"],
+      [{ color: ["red"] }, { background: [] }],
       ["clean"],
     ],
   };
