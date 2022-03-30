@@ -48,7 +48,7 @@ const Homepage = () => {
           />
           <div className="flex-container-verticle">
             <div className="idea-cards">MULTITASK</div>
-            <div className="idea-cards">ORGANIZED</div>
+            <div className="idea-cards">ORGANIZE</div>
           </div>
         </div>
         <div className="flex-container-verticle homepage-secondary-heading">

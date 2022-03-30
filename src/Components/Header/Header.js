@@ -1,10 +1,15 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../Contexts";
 import Logo from "../Logo/Logo";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
 
 function Header() {
+  const {
+    authState: { isLoggedIn, user },
+  } = useAuth();
+
   return (
     <>
       <nav className="text-dark ">
@@ -20,23 +25,29 @@ function Header() {
         </div>
 
         <ul className="nav-menu">
-          <li>
-            <NavLink to="/" className="nav-item">
-              <span class="material-icons md-36 ">account_circle</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login" className="nav-item">
-              <button className="btn btn-small btn-primary">Login</button>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/signup" className="nav-item">
-              <button className="btn btn-small btn-secondary-outline">
-                Signup
-              </button>
-            </NavLink>
-          </li>
+          {isLoggedIn && (
+            <li>
+              <NavLink to="/user-details" className="nav-item">
+                <span className="material-icons md-36 ">account_circle</span>
+              </NavLink>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li>
+              <NavLink to="/login" className="nav-item">
+                <button className="btn btn-small btn-primary">Login</button>
+              </NavLink>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li>
+              <NavLink to="/signup" className="nav-item">
+                <button className="btn btn-small btn-secondary-outline">
+                  Signup
+                </button>
+              </NavLink>
+            </li>
+          )}
         </ul>
 
         <div id="hamburger" className="hamburger">
