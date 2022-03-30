@@ -1,12 +1,9 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useState, useEffect } from "react";
 import "./Quill.css";
 
 const Quill = ({ value, setValue }) => {
-  // const [value, setValue] = useState("");
-
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -18,9 +15,6 @@ const Quill = ({ value, setValue }) => {
     ],
   };
 
-  useEffect(() => {
-    console.log(value);
-  });
   return (
     <ReactQuill
       className="quill-editor"

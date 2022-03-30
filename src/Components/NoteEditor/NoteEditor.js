@@ -1,14 +1,11 @@
 import React from "react";
+import { Quill } from "react-quill";
 import { useState } from "react";
-import Quill from "../Quill/Quill";
-import "./AllNotes.css";
-import NoteEditor from "../NoteEditor/NoteEditor";
 
-const AllNotes = () => {
+const NoteEditor = () => {
   const [value, setValue] = useState("");
   return (
-    <div className="allnotes-container">
-      {/* <NoteEditor /> */}
+    <>
       <div className="note-editor">
         <div className="title title-md secondary-text">Create New Note</div>
         <input className="note-title" type="text" placeholder="Title of Note" />
@@ -31,10 +28,8 @@ const AllNotes = () => {
           </div>
         </div>
       </div>
-
-      <div dangerouslySetInnerHTML={{ __html: value }}></div>
-    </div>
+    </>
   );
 };
 
-export default AllNotes;
+export default NoteEditor;
