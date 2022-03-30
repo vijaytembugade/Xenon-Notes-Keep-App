@@ -1,6 +1,9 @@
 .active-nav-item {
   color: var(--primary-color);
 }
+.material-icons {
+  cursor: pointer;
+}
 
 nav {
   height: 3rem;
@@ -15,6 +18,7 @@ nav {
   align-items: center;
   border-radius: 0;
   gap: 1rem;
+  background-color: var(--bg-color);
 }
 .nav-menu {
   margin-left: auto;
