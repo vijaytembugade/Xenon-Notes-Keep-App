@@ -16,6 +16,15 @@ const NoteSidebar = () => {
           </li>
         </NavLink>
         <NavLink
+          to="/notes/label"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <li>
+            <span class="material-icons">label</span>
+            <span> Label</span>
+          </li>
+        </NavLink>
+        <NavLink
           to="/notes/archived"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
