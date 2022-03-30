@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./Homepage.css";
 
@@ -14,9 +15,11 @@ const Homepage = () => {
 
         <div className="flex-container-verticle homepage-image">
           <div className="flex-container-verticle">
-            <button className="btn btn-success start-now ">
-              Click here to get started!
-            </button>
+            <Link to="/notes">
+              <button className="btn btn-success start-now ">
+                Click here to get started!
+              </button>
+            </Link>
           </div>
           <img className="responsive-img" src="/assets/GIF/Note.gif" alt="" />
 

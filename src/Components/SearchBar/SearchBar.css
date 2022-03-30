@@ -8,7 +8,8 @@
 .search-input {
   outline: none;
   padding: 12px;
-  width: 20rem;
+  min-width: 20rem;
+  width: 30rem;
 }
 .search-button {
   cursor: pointer;
@@ -20,4 +21,9 @@
 
 .search-button:hover {
   background-color: var(--classic-color);
+}
+@media only screen and (max-width: 768px) {
+  .searchbar-container {
+    display: none;
+  }
 }

@@ -1,0 +1,35 @@
+ul {
+  list-style-type: none;
+}
+.notesidebar {
+  flex: 0.2;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+}
+
+.notesidebar-list > a > li {
+  padding: 1rem 0 1rem 2rem;
+  cursor: pointer;
+  /* width: 15rem; */
+  display: flex;
+  gap: 1rem;
+}
+
+.notesidebar-list > a > li:hover {
+  color: var(--primary-color);
+}
+
+.active > li {
+  background-color: var(--light-color);
+  color: var(--primary-color);
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .notesidebar-list > a > li {
+    width: 10rem;
+  }
+}

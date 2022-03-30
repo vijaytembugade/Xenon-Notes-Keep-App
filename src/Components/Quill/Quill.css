@@ -1,0 +1,26 @@
+.quill-editor {
+  background-color: var(--light-color);
+}
+
+.ql-snow .ql-stroke {
+  stroke: var(--primary-color);
+}
+.ql-toolbar.ql-snow {
+  background-color: var(--light-color);
+}
+.ql-snow .ql-tooltip {
+  background-color: var(--light-color);
+}
+.ql-snow .ql-picker {
+  color: var(--primary-color);
+}
+.ql-active {
+  color: var(--secondary-color);
+}
+.ql-snow.ql-toolbar .ql-picker-label.ql-active {
+  color: var(--secondary-color);
+}
+
+.my-editing-area {
+  height: 10rem;
+}
