@@ -45,7 +45,6 @@ const NoteEditor = ({ setShowNoteEditor }) => {
         note: entireNote,
       });
 
-      console.log(responce);
       noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
     } catch (error) {
       console.log(error);

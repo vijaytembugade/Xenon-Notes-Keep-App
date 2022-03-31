@@ -4,7 +4,7 @@ import Quill from "../Quill/Quill";
 import "./AllNotes.css";
 import NoteEditor from "../NoteEditor/NoteEditor";
 import { useNotes } from "../../Contexts";
-import ShowAllNotes from "./ShowAllNotes";
+import ShowAllNotes from "../ShowAllNotes/ShowAllNotes";
 
 const AllNotes = () => {
   const [showNoteEditor, setShowNoteEditor] = useState(false);
@@ -12,8 +12,6 @@ const AllNotes = () => {
   const {
     noteState: { notes },
   } = useNotes();
-
-  console.log(notes);
 
   return (
     <>
@@ -30,9 +28,11 @@ const AllNotes = () => {
         {showNoteEditor && <NoteEditor setShowNoteEditor={setShowNoteEditor} />}
 
         <div className="show-all-notes-container">
-          {notes.map((note) => {
-            return <ShowAllNotes note={note} />;
-          })}
+          {notes
+            .filter((note) => note.inTrash === false)
+            .map((note) => {
+              return <ShowAllNotes note={note} />;
+            })}
         </div>
       </div>
     </>

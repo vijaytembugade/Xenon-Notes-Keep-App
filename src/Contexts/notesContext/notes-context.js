@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useEffect, useReducer, useContext, createContext } from "react";
-
 import { SET_NOTES } from "../../Constants";
 import { useAuth } from "../../Contexts";
+import { notesReducer } from "../../Reducers";
 import { customAxios } from "../../Utils";
 
 const NotesContext = createContext();
@@ -11,22 +10,16 @@ const NotesProvider = ({ children }) => {
   const {
     authState: { isLoggedIn },
   } = useAuth();
+
   const initialState = {
     notes: [],
   };
 
-  const notesReducer = (state, action) => {
-    switch (action.type) {
-      case SET_NOTES: {
-        return { ...state, notes: action.payload };
-      }
-      default: {
-        return state;
-      }
-    }
-  };
-
   const [noteState, noteDispatch] = useReducer(notesReducer, initialState);
+
+  useEffect(() => {
+    console.log(noteState);
+  });
 
   useEffect(() => {
     const fetchData = async () => {

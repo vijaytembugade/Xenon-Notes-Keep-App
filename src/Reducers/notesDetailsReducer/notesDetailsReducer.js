@@ -25,7 +25,7 @@ export const noteDetailsReducer = (state, action) => {
       return { ...state, priority: action.payload };
     }
     case SET_STARRED: {
-      return { ...state, starred: !state.starred };
+      return { ...state, isBookmarked: !state.starred };
     }
   }
 };

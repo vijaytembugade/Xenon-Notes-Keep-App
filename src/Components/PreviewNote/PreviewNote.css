@@ -1,0 +1,26 @@
+dialog {
+  position: fixed;
+  width: 50vw;
+  top: 10%;
+  overflow-y: auto;
+  height: 30rem;
+  z-index: 2;
+  border-radius: 1rem;
+}
+::backdrop {
+  --bg-color: blue;
+}
+
+dialog::backdrop {
+  background: var(--bg-color);
+}
+
+.close-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5rem;
+  border-radius: 10%;
+  aspect-ratio: 1/1;
+  padding: 0.2rem;
+}

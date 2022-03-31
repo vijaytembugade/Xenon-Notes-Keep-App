@@ -1,9 +1,27 @@
 import React, { useState } from "react";
+import { SET_NOTES } from "../../Constants";
+import { useNotes } from "../../Contexts";
+import { customAxios } from "../../Utils";
+import PreviewNote from "../PreviewNote/PreviewNote";
 import "./ShowAllNotes.css";
 
 const ShowAllNotes = ({ note }) => {
+  const { noteDispatch } = useNotes();
+
   const [showButton, setShowButtons] = useState(false);
-  console.log(note.color);
+  const [noteShow, setNoteShow] = useState({ show: false, note: "" });
+
+  async function handleMoveToTrashNote(note) {
+    try {
+      const responce = await customAxios.post(`/api/notes/${note._id}`, {
+        note: { ...note, inTrash: true },
+      });
+      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const textColor =
     (note.color === "success" || note.color === "warning") && "gray-text";
   return (
@@ -23,6 +41,7 @@ const ShowAllNotes = ({ note }) => {
             <span
               class="material-icons md-24 success-text"
               title="priview Note"
+              onClick={() => setNoteShow({ show: true, note: note })}
             >
               preview
             </span>
@@ -37,12 +56,23 @@ const ShowAllNotes = ({ note }) => {
             >
               archive
             </span>
-            <span class="material-icons md-24 danger-text" title="Delete Note">
+            <span class="material-icons md-24 " title="BookMark">
+              {note.starred ? "bookmark" : "bookmark_border"}
+            </span>
+            <span
+              class="material-icons md-24 danger-text"
+              title="Delete Note"
+              onClick={() => handleMoveToTrashNote(note)}
+            >
               delete
             </span>
           </div>
         )}
       </div>
+
+      {noteShow.show && (
+        <PreviewNote note={noteShow.note} setNoteShow={setNoteShow} />
+      )}
     </>
   );
 };
