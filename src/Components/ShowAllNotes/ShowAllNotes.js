@@ -51,28 +51,28 @@ const ShowAllNotes = ({ note }) => {
         {showButton && (
           <div className="note-buttons">
             <span
-              class="material-icons md-24 success-text"
+              className="material-icons md-24 success-text"
               title="priview Note"
               onClick={() => setNoteShow({ show: true, note: note })}
             >
               preview
             </span>
 
-            <span class="material-icons md-24 " title="Edit Note">
+            <span className="material-icons md-24 " title="Edit Note">
               edit
             </span>
 
             <span
-              class="material-icons md-24 primary-text"
+              className="material-icons md-24 primary-text"
               title="Move to Archive"
             >
               archive
             </span>
-            <span class="material-icons md-24 " title="BookMark">
+            <span className="material-icons md-24 " title="BookMark">
               {note.starred ? "bookmark" : "bookmark_border"}
             </span>
             <span
-              class="material-icons md-24 danger-text"
+              className="material-icons md-24 danger-text"
               title="Delete Note"
               onClick={() =>
                 note.inTrash && location.pathname === "/notes/trashed"

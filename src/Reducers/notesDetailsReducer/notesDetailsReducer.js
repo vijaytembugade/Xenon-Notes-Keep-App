@@ -1,10 +1,10 @@
 import {
   SET_COLOR,
   SET_IN_TRASH,
-  SET_LABEL,
   SET_NOTE_TITLE,
   SET_PRIORITY,
   SET_STARRED,
+  SET_TAGS,
 } from "../../Constants";
 
 export const noteDetailsReducer = (state, action) => {
@@ -15,9 +15,6 @@ export const noteDetailsReducer = (state, action) => {
     case SET_COLOR: {
       return { ...state, color: action.payload };
     }
-    case SET_LABEL: {
-      return { ...state, label: action.payload };
-    }
     case SET_IN_TRASH: {
       return { ...state, inTrash: !state.inTrash };
     }
@@ -26,6 +23,9 @@ export const noteDetailsReducer = (state, action) => {
     }
     case SET_STARRED: {
       return { ...state, isBookmarked: !state.starred };
+    }
+    case SET_TAGS: {
+      return { ...state, tags: action.payload };
     }
   }
 };

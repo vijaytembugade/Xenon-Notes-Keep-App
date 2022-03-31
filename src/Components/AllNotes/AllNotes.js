@@ -21,7 +21,7 @@ const AllNotes = () => {
             className="btn btn-ternary-outline"
             onClick={() => setShowNoteEditor(true)}
           >
-            <span class="material-icons">add_circle</span>
+            <span className="material-icons">add_circle</span>
             Create New Note
           </button>
         )}

@@ -18,4 +18,5 @@ export {
   SET_NOTE_TITLE,
   SET_PRIORITY,
   SET_STARRED,
+  SET_TAGS,
 } from "./NoteDetailsConstants/notes-details-constants";

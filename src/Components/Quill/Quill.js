@@ -19,7 +19,6 @@ const Quill = ({ value, setValue }) => {
       className="quill-editor"
       theme="snow"
       modules={modules}
-      // formats={formats}
       value={value}
       onChange={setValue}
       defaultValue={value}

@@ -1,45 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Quill from "../Quill/Quill";
 import { useState, useReducer } from "react";
 import {
   SET_COLOR,
   SET_IN_TRASH,
-  SET_LABEL,
-  SET_NOTE,
   SET_NOTES,
   SET_NOTE_TITLE,
   SET_PRIORITY,
   SET_STARRED,
+  SET_TAGS,
 } from "../../Constants";
-import { noteDetailsReducer } from "../../Reducers";
 import { customAxios } from "../../Utils";
-import { useAuth, useNotes } from "../../Contexts";
+import { useNoteDetails, useNotes } from "../../Contexts";
+
+import LabelCreator from "../LabelCreator/LabelCreator";
 
 const NoteEditor = ({ setShowNoteEditor }) => {
-  const {
-    noteState: { notes },
-    noteDispatch,
-  } = useNotes();
-  const {
-    authState: { token },
-  } = useAuth();
   const [note, setNote] = useState("");
 
-  const initialState = {
-    noteTitle: "",
-    color: "",
-    label: "",
-    inTrash: false,
-    priority: "HIGH",
-    starred: false,
-  };
+  const { noteDispatch } = useNotes();
 
-  const [state, dispatch] = useReducer(noteDetailsReducer, initialState);
+  const { noteDetailsState, noteDetailsDispatch: dispatch } = useNoteDetails();
 
-  const { noteTitle, color, label, inTrash, priority, starred } = state;
+  const { noteTitle, color, inTrash, priority, starred, tags } =
+    noteDetailsState;
 
   const handleNoteSave = async () => {
-    const entireNote = { note, ...state };
+    const entireNote = { note, ...noteDetailsState };
     try {
       const responce = await customAxios.post("/api/notes", {
         note: entireNote,
@@ -66,15 +53,7 @@ const NoteEditor = ({ setShowNoteEditor }) => {
         />
         <div className="new-note">
           <Quill value={note} setValue={setNote} />
-          <input
-            className="note-label"
-            type="text"
-            placeholder="Label of Note"
-            value={label}
-            onChange={(e) =>
-              dispatch({ type: SET_LABEL, payload: e.target.value })
-            }
-          />
+          <LabelCreator tags={tags} />
           <div className="note-color-selector">
             <input
               type="radio"
