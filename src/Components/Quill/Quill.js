@@ -22,6 +22,8 @@ const Quill = ({ value, setValue }) => {
       // formats={formats}
       value={value}
       onChange={setValue}
+      defaultValue={value}
+      placeholder="Take a note..."
     >
       <div className="my-editing-area"></div>
     </ReactQuill>
