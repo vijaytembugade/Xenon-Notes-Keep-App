@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { SET_NOTES } from "../../Constants";
 import { useNotes } from "../../Contexts";
 import { customAxios } from "../../Utils";
@@ -11,11 +12,22 @@ const ShowAllNotes = ({ note }) => {
   const [showButton, setShowButtons] = useState(false);
   const [noteShow, setNoteShow] = useState({ show: false, note: "" });
 
+  const location = useLocation();
+
   async function handleMoveToTrashNote(note) {
     try {
       const responce = await customAxios.post(`/api/notes/${note._id}`, {
         note: { ...note, inTrash: true },
       });
+      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleDeleteNote(note) {
+    try {
+      const responce = await customAxios.delete(`/api/notes/${note._id}`);
       noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
     } catch (error) {
       console.log(error);
@@ -62,7 +74,11 @@ const ShowAllNotes = ({ note }) => {
             <span
               class="material-icons md-24 danger-text"
               title="Delete Note"
-              onClick={() => handleMoveToTrashNote(note)}
+              onClick={() =>
+                note.inTrash && location.pathname === "/notes/trashed"
+                  ? handleDeleteNote(note)
+                  : handleMoveToTrashNote(note)
+              }
             >
               delete
             </span>

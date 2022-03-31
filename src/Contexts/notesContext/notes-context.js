@@ -18,15 +18,10 @@ const NotesProvider = ({ children }) => {
   const [noteState, noteDispatch] = useReducer(notesReducer, initialState);
 
   useEffect(() => {
-    console.log(noteState);
-  });
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const responce = await customAxios.get("/api/notes");
         noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
-        console.log(responce);
       } catch (error) {
         console.log(error);
       }
