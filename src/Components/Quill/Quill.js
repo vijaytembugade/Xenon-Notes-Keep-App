@@ -11,7 +11,6 @@ const Quill = ({ value, setValue }) => {
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image", "video"],
       ["code-block", "code"],
-      ["clean"],
     ],
   };
 

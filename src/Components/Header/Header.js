@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useAuth } from "../../Contexts";
+import { useAuth, useTheme } from "../../Contexts";
 import Logo from "../Logo/Logo";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
@@ -10,11 +10,11 @@ function Header() {
     authState: { isLoggedIn },
   } = useAuth();
 
+  const { theme, setTheme } = useTheme();
+
   const navMenuForbiddenPaths = ["/", "/login", "/signup"];
 
   const { pathname } = useLocation();
-
-  console.log(pathname);
 
   return (
     <>
@@ -33,10 +33,29 @@ function Header() {
         )}
 
         <ul className="nav-menu">
+          <li>
+            {(theme === "" || theme === "light-mode") && (
+              <span
+                className=" material-icons md-24"
+                onClick={() => setTheme("dark-mode")}
+              >
+                nightlight
+              </span>
+            )}
+            {theme === "dark-mode" && (
+              <span
+                className="material-icons"
+                onClick={() => setTheme("light-mode")}
+              >
+                light_mode
+              </span>
+            )}
+          </li>
+
           {isLoggedIn && (
             <li>
               <NavLink to="/notes" className="nav-item">
-                <span class="material-icons md-24">text_snippet</span>
+                <span className="material-icons md-24">text_snippet</span>
               </NavLink>
             </li>
           )}

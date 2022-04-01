@@ -1,8 +1,8 @@
 import React from "react";
-import { Quill } from "react-quill";
+import Quill from "../Quill/Quill";
 import { useState } from "react";
 
-const NoteEditor = () => {
+const NoteEditor = ({ setShowNoteEditor }) => {
   const [value, setValue] = useState("");
   return (
     <>
@@ -24,7 +24,12 @@ const NoteEditor = () => {
           </div>
           <div className="flex-container">
             <button className="btn btn-primary-outline">Save</button>
-            <button className="btn  btn-primary-outline">Cancle</button>
+            <button
+              className="btn  btn-primary-outline"
+              onClick={() => setShowNoteEditor(false)}
+            >
+              Cancle
+            </button>
           </div>
         </div>
       </div>

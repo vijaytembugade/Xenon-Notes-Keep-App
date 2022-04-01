@@ -5,7 +5,7 @@ import "./NotesSidebar.css";
 const NoteSidebar = () => {
   return (
     <div className="notesidebar">
-      <ul className="notesidebar-list">
+      <ul className="notesidebar-list dark-text">
         <NavLink
           to="/notes/all-notes"
           className={({ isActive }) => (isActive ? "active" : "")}

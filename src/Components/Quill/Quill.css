@@ -1,5 +1,7 @@
 .quill-editor {
   background-color: var(--light-color);
+  border: none;
+  border-radius: 10px 10px 0 0;
 }
 
 .ql-snow .ql-stroke {
@@ -17,10 +19,33 @@
 .ql-active {
   color: var(--secondary-color);
 }
+
+.ql-toolbar.ql-snow {
+  background-color: var(--light-color);
+  border-radius: 10px 10px 0 0;
+  padding: 0.5rem;
+}
+
+/* css for quill active tools */
 .ql-snow.ql-toolbar .ql-picker-label.ql-active {
   color: var(--secondary-color);
 }
 
+.ql-snow.ql-toolbar button:hover .ql-stroke {
+  stroke: var(--secondary-color);
+}
+
+.ql-snow.ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--secondary-color);
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill {
+  fill: var(--secondary-color);
+}
+
+.ql-snow.ql-toolbar button.ql-active .ql-fill {
+  fill: var(--secondary-color);
+}
 .my-editing-area {
   height: 10rem;
 }

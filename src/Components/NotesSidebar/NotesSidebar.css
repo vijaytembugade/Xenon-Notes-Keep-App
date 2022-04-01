@@ -18,12 +18,12 @@ ul {
 }
 
 .notesidebar-list > a > li:hover {
-  color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .active > li {
   background-color: var(--light-color);
-  color: var(--primary-color);
+  color: var(--secondary-color);
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
