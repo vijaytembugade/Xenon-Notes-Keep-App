@@ -20,3 +20,5 @@ export {
   SET_STARRED,
   SET_TAGS,
 } from "./NoteDetailsConstants/notes-details-constants";
+
+export { SET_ARCHIVES } from "./ArchivesConstants/archives-constants";

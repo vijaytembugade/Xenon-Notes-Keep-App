@@ -5,12 +5,12 @@ import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import {
+  ArchivesProvider,
   AuthProvider,
   NoteDetailsProvider,
   NotesProvider,
   ThemeProvider,
 } from "./Contexts";
-import axios from "axios";
 
 // Call make Server
 makeServer();
@@ -21,9 +21,11 @@ ReactDOM.render(
       <ThemeProvider>
         <AuthProvider>
           <NotesProvider>
-            <NoteDetailsProvider>
-              <App />
-            </NoteDetailsProvider>
+            <ArchivesProvider>
+              <NoteDetailsProvider>
+                <App />
+              </NoteDetailsProvider>
+            </ArchivesProvider>
           </NotesProvider>
         </AuthProvider>
       </ThemeProvider>

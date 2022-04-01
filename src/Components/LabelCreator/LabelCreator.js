@@ -10,7 +10,7 @@ const options = [
   { value: "Label 2", label: "Label-2" },
 ];
 const LabelCreator = ({ tags }) => {
-  const [selectedOption, setSelectedOption] = useState(tags);
+  const [selectedOption, setSelectedOption] = useState([]);
 
   const { noteDetailsDispatch } = useNoteDetails();
 

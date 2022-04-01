@@ -5,3 +5,8 @@ export {
   NoteDetailsProvider,
   useNoteDetails,
 } from "./noteDetailsContext/noteDetailsContext";
+
+export {
+  useArchives,
+  ArchivesProvider,
+} from "./archivesContext/archives-context";

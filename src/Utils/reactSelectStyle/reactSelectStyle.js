@@ -12,6 +12,10 @@ const customStyles = {
     color: "gray",
     backgroundColor: "var(--light-color)",
   }),
+  input: (provided) => ({
+    ...provided,
+    color: "var(--text-color)",
+  }),
 };
 
 export { customStyles };
