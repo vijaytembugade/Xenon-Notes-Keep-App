@@ -69,6 +69,20 @@ const ShowAllNotes = ({ note }) => {
     }
   }
 
+  async function handleDelteArchive(note) {
+    try {
+      const responce = await customAxios.delete(
+        `/api/archives/delete/${note._id}`
+      );
+      archivesDispatch({
+        type: SET_ARCHIVES,
+        payload: [...responce.data.archives],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const textColor =
     (note.color === "success" || note.color === "warning") && "gray-text";
   return (
@@ -123,6 +137,8 @@ const ShowAllNotes = ({ note }) => {
               onClick={() =>
                 note.inTrash && location.pathname === "/notes/trashed"
                   ? handleDeleteNote(note)
+                  : location.pathname === "/notes/archived"
+                  ? handleDelteArchive(note)
                   : handleMoveToTrashNote(note)
               }
             >
