@@ -124,6 +124,22 @@ const ShowAllNotes = ({ note }) => {
       console.log(error);
     }
   }
+  async function handleRestoreNoteFromTrash(note) {
+    try {
+      const responce = await axios.post(
+        `/api/notes/${note._id}`,
+        {
+          note: { ...note, inTrash: false },
+        },
+        {
+          headers: { authorization: token },
+        }
+      );
+      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleEditNote = (note) => {
     dispatch({ type: SET_NOTE_TITLE, payload: note.noteTitle });
@@ -192,6 +208,16 @@ const ShowAllNotes = ({ note }) => {
                 onClick={() => hadleNoteBookMark(note)}
               >
                 {note.starred ? "bookmark" : "bookmark_border"}
+              </span>
+            )}
+
+            {pathname === "/notes/trashed" && (
+              <span
+                class="material-icons primary-text"
+                onClick={() => handleRestoreNoteFromTrash(note)}
+                title="Restore the Note"
+              >
+                restore_from_trash
               </span>
             )}
             <span
