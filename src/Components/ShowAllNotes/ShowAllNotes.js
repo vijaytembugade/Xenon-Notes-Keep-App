@@ -1,19 +1,26 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { SET_ARCHIVES, SET_NOTES } from "../../Constants";
-import { useArchives, useNotes } from "../../Contexts";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  SET_ARCHIVES,
+  SET_COLOR,
+  SET_NOTES,
+  SET_NOTE_TITLE,
+  SET_TAGS,
+} from "../../Constants";
+import { useArchives, useNoteDetails, useNotes } from "../../Contexts";
 import { customAxios } from "../../Utils";
 import PreviewNote from "../PreviewNote/PreviewNote";
 import "./ShowAllNotes.css";
 
 const ShowAllNotes = ({ note }) => {
+  const location = useLocation();
+
   const { noteDispatch } = useNotes();
   const { archivesDispatch } = useArchives();
+  const { noteDetailsDispatch: dispatch } = useNoteDetails();
 
   const [showButton, setShowButtons] = useState(false);
   const [noteShow, setNoteShow] = useState({ show: false, note: "" });
-
-  const location = useLocation();
 
   async function handleMoveToTrashNote(note) {
     try {
@@ -82,6 +89,14 @@ const ShowAllNotes = ({ note }) => {
       console.log(error);
     }
   }
+  const navigate = useNavigate();
+
+  const handleEditNote = (note) => {
+    dispatch({ type: SET_NOTE_TITLE, payload: note.noteTitle });
+    dispatch({ type: SET_COLOR, payload: note.color });
+    dispatch({ type: SET_TAGS, payload: note.tags });
+    navigate(`/notes/edit/${note._id}`);
+  };
 
   const textColor =
     (note.color === "success" || note.color === "warning") && "gray-text";
@@ -107,7 +122,11 @@ const ShowAllNotes = ({ note }) => {
               preview
             </span>
 
-            <span className="material-icons md-24 " title="Edit Note">
+            <span
+              className="material-icons md-24 "
+              title="Edit Note"
+              onClick={() => handleEditNote(note)}
+            >
               edit
             </span>
 

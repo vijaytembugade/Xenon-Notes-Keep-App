@@ -1,26 +1,22 @@
 import React, { useEffect } from "react";
 import Quill from "../Quill/Quill";
-import { useState, useReducer } from "react";
-import {
-  SET_COLOR,
-  SET_IN_TRASH,
-  SET_NOTES,
-  SET_NOTE_TITLE,
-  SET_PRIORITY,
-  SET_STARRED,
-  SET_TAGS,
-} from "../../Constants";
+import { useState } from "react";
+import { RESET, SET_COLOR, SET_NOTES, SET_NOTE_TITLE } from "../../Constants";
 import { customAxios } from "../../Utils";
 import { useNoteDetails, useNotes } from "../../Contexts";
 
 import LabelCreator from "../LabelCreator/LabelCreator";
+import { useLocation, matchPath, useNavigate } from "react-router-dom";
 
-const NoteEditor = ({ setShowNoteEditor }) => {
-  const [note, setNote] = useState("");
+const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  const { noteDispatch } = useNotes();
+  const [note, setNote] = useState(editableNote.note);
 
   const { noteDetailsState, noteDetailsDispatch: dispatch } = useNoteDetails();
+
+  const { noteDispatch } = useNotes();
 
   const { noteTitle, color, inTrash, priority, starred, tags } =
     noteDetailsState;
@@ -33,6 +29,25 @@ const NoteEditor = ({ setShowNoteEditor }) => {
       });
 
       noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+      dispatch({ type: RESET });
+      setShowNoteEditor(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditSave = async () => {
+    const entireNote = { note, ...noteDetailsState };
+    try {
+      const responce = await customAxios.post(
+        `/api/notes/${editableNote._id}`,
+        {
+          note: entireNote,
+        }
+      );
+
+      noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+      navigate("/notes/all-notes");
     } catch (error) {
       console.log(error);
     }
@@ -90,24 +105,46 @@ const NoteEditor = ({ setShowNoteEditor }) => {
               onChange={() => dispatch({ type: SET_COLOR, payload: "warning" })}
             />
           </div>
-          <div className="flex-container">
-            <button
-              className="btn btn-primary-outline"
-              onClick={handleNoteSave}
-            >
-              Save
-            </button>
-            <button
-              className="btn  btn-primary-outline"
-              onClick={() => setShowNoteEditor(false)}
-            >
-              Cancle
-            </button>
-          </div>
+
+          {matchPath("/notes/edit/*", pathname) ? (
+            <div className="flex-container">
+              <button
+                className="btn btn-primary-outline"
+                onClick={handleEditSave}
+              >
+                Edit
+              </button>
+              <button
+                className="btn  btn-primary-outline"
+                onClick={() => navigate("/notes/all-notes")}
+              >
+                Back
+              </button>
+            </div>
+          ) : (
+            <div className="flex-container">
+              <button
+                className="btn btn-primary-outline"
+                onClick={handleNoteSave}
+              >
+                Save
+              </button>
+              <button
+                className="btn  btn-primary-outline"
+                onClick={() => setShowNoteEditor(false)}
+              >
+                Cancle
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 };
 
+NoteEditor.defaultProps = {
+  editableNote: "",
+  setShowNoteEditor: () => {},
+};
 export default NoteEditor;

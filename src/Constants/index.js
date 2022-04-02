@@ -19,6 +19,7 @@ export {
   SET_PRIORITY,
   SET_STARRED,
   SET_TAGS,
+  RESET,
 } from "./NoteDetailsConstants/notes-details-constants";
 
 export { SET_ARCHIVES } from "./ArchivesConstants/archives-constants";
