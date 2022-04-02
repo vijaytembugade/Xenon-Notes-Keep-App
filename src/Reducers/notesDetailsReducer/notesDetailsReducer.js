@@ -5,6 +5,7 @@ import {
   SET_PRIORITY,
   SET_STARRED,
   SET_TAGS,
+  RESET,
 } from "../../Constants";
 
 export const noteDetailsReducer = (state, action) => {
@@ -26,6 +27,17 @@ export const noteDetailsReducer = (state, action) => {
     }
     case SET_TAGS: {
       return { ...state, tags: action.payload };
+    }
+    case RESET:
+    default: {
+      return {
+        noteTitle: "",
+        color: "",
+        inTrash: false,
+        priority: "",
+        starred: false,
+        tags: [],
+      };
     }
   }
 };

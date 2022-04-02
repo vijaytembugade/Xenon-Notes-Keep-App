@@ -7,9 +7,9 @@ import "./LabelCreator.css";
 
 const options = [
   { value: "Label 1", label: "Label 1" },
-  { value: "Label 2", label: "Label-2" },
+  { value: "Label 2", label: "Label 2" },
 ];
-const LabelCreator = ({ tags }) => {
+const LabelCreator = () => {
   const [selectedOption, setSelectedOption] = useState([]);
 
   const { noteDetailsDispatch } = useNoteDetails();
@@ -36,6 +36,10 @@ const LabelCreator = ({ tags }) => {
       </div>
     </>
   );
+};
+
+LabelCreator.defaultProps = {
+  tags: [],
 };
 
 export default LabelCreator;

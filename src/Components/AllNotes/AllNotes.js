@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import Quill from "../Quill/Quill";
 import "./AllNotes.css";
 import NoteEditor from "../NoteEditor/NoteEditor";
 import { useNotes } from "../../Contexts";
@@ -31,7 +30,7 @@ const AllNotes = () => {
           {notes
             .filter((note) => note.inTrash === false)
             .map((note) => {
-              return <ShowAllNotes note={note} />;
+              return <ShowAllNotes note={note} key={note._id} />;
             })}
         </div>
       </div>

@@ -53,11 +53,11 @@ const LabledNotes = () => {
       <div className="show-all-notes-container">
         {!showOnlyLabledNote &&
           mainNotes.map((note) => {
-            return <ShowAllNotes note={note} />;
+            return <ShowAllNotes note={note} key={note._id} />;
           })}
         {showOnlyLabledNote &&
           labedNotes.map((note) => {
-            return <ShowAllNotes note={note} />;
+            return <ShowAllNotes note={note} key={note._id} />;
           })}
       </div>
     </div>

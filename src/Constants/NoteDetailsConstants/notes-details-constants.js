@@ -6,3 +6,4 @@ export const SET_IN_TRASH = "SET_IN_TRASH";
 export const SET_PRIORITY = "SET_PRIORITY";
 export const SET_STARRED = "SET_STARRED";
 export const SET_TAGS = "SET_TAGS";
+export const RESET = "RESET";
