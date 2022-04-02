@@ -11,6 +11,7 @@ import {
   NotesProvider,
   ThemeProvider,
 } from "./Contexts";
+import axios from "axios";
 
 // Call make Server
 makeServer();

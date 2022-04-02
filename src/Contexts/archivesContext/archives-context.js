@@ -1,14 +1,14 @@
+import axios from "axios";
 import { useReducer, useContext, createContext, useEffect } from "react";
 import { SET_ARCHIVES } from "../../Constants";
 import { archiveReducer } from "../../Reducers";
-import { customAxios } from "../../Utils";
 import { useAuth } from "../authContext/auth-context";
 
 const ArchivesContext = createContext();
 
 const ArchivesProvider = ({ children }) => {
   const {
-    authState: { isLoggedIn },
+    authState: { isLoggedIn, token },
   } = useAuth();
   const initialState = {
     archives: [],
@@ -22,7 +22,9 @@ const ArchivesProvider = ({ children }) => {
     if (isLoggedIn) {
       (async () => {
         try {
-          const responce = await customAxios.get("/api/archives");
+          const responce = await axios.get("/api/archives", {
+            headers: { authorization: token },
+          });
           archivesDispatch({
             type: SET_ARCHIVES,
             payload: responce.data.archives,
