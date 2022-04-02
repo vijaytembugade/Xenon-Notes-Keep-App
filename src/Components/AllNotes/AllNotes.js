@@ -4,13 +4,21 @@ import "./AllNotes.css";
 import NoteEditor from "../NoteEditor/NoteEditor";
 import { useNotes } from "../../Contexts";
 import ShowAllNotes from "../ShowAllNotes/ShowAllNotes";
+import {
+  getBookMarkedNotes,
+  getNoNBookMarkedNotes,
+  removeTrashedNotes,
+} from "../../Utils";
+import BookMarkedNotes from "../BookMarkedNotes/BookMarkedNotes";
 
 const AllNotes = () => {
   const [showNoteEditor, setShowNoteEditor] = useState(false);
 
-  const {
-    noteState: { notes },
-  } = useNotes();
+  const { noteState } = useNotes();
+
+  const notes = removeTrashedNotes(noteState.notes);
+  const bookMarkedNotes = getBookMarkedNotes(notes);
+  const mainNotes = getNoNBookMarkedNotes(notes);
 
   return (
     <>
@@ -26,12 +34,20 @@ const AllNotes = () => {
         )}
         {showNoteEditor && <NoteEditor setShowNoteEditor={setShowNoteEditor} />}
 
+        <div>
+          {bookMarkedNotes.length > 0 && (
+            <span className="title">Bookmarked</span>
+          )}
+          <BookMarkedNotes bookMarkedNotes={bookMarkedNotes} />
+        </div>
+
+        {bookMarkedNotes.length > 0 && mainNotes.length > 0 && (
+          <span className="title">Others</span>
+        )}
         <div className="show-all-notes-container">
-          {notes
-            .filter((note) => note.inTrash === false)
-            .map((note) => {
-              return <ShowAllNotes note={note} key={note._id} />;
-            })}
+          {mainNotes.map((note) => {
+            return <ShowAllNotes note={note} key={note._id} />;
+          })}
         </div>
       </div>
     </>

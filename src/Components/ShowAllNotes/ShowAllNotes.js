@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -7,26 +8,35 @@ import {
   SET_NOTE_TITLE,
   SET_TAGS,
 } from "../../Constants";
-import { useArchives, useNoteDetails, useNotes } from "../../Contexts";
-import { customAxios } from "../../Utils";
+import { useArchives, useAuth, useNoteDetails, useNotes } from "../../Contexts";
 import PreviewNote from "../PreviewNote/PreviewNote";
 import "./ShowAllNotes.css";
 
 const ShowAllNotes = ({ note }) => {
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const { noteDispatch } = useNotes();
   const { archivesDispatch } = useArchives();
   const { noteDetailsDispatch: dispatch } = useNoteDetails();
+  const {
+    authState: { token },
+  } = useAuth();
 
   const [showButton, setShowButtons] = useState(false);
   const [noteShow, setNoteShow] = useState({ show: false, note: "" });
 
   async function handleMoveToTrashNote(note) {
     try {
-      const responce = await customAxios.post(`/api/notes/${note._id}`, {
-        note: { ...note, inTrash: true },
-      });
+      const responce = await axios.post(
+        `/api/notes/${note._id}`,
+        {
+          note: { ...note, inTrash: true },
+        },
+        {
+          headers: { authorization: token },
+        }
+      );
       noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
     } catch (error) {
       console.log(error);
@@ -35,7 +45,26 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleDeleteNote(note) {
     try {
-      const responce = await customAxios.delete(`/api/notes/${note._id}`);
+      const responce = await axios.delete(`/api/notes/${note._id}`, {
+        headers: { authorization: token },
+      });
+      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function hadleNoteBookMark(note) {
+    try {
+      const responce = await axios.post(
+        `/api/notes/${note._id}`,
+        {
+          note: { ...note, starred: !note.starred },
+        },
+        {
+          headers: { authorization: token },
+        }
+      );
       noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
     } catch (error) {
       console.log(error);
@@ -44,10 +73,13 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleArchivesNotes(note) {
     try {
-      const responce = await customAxios.post(
+      const responce = await axios.post(
         `/api/notes/archives/${note._id}`,
         {
           note,
+        },
+        {
+          headers: { authorization: token },
         }
       );
       noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
@@ -62,9 +94,12 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleRestoreNotes(note) {
     try {
-      const responce = await customAxios.post(
+      const responce = await axios.post(
         `/api/archives/restore/${note._id}`,
-        {}
+        {},
+        {
+          headers: { authorization: token },
+        }
       );
       noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
       archivesDispatch({
@@ -76,11 +111,11 @@ const ShowAllNotes = ({ note }) => {
     }
   }
 
-  async function handleDelteArchive(note) {
+  async function handleDeleteArchive(note) {
     try {
-      const responce = await customAxios.delete(
-        `/api/archives/delete/${note._id}`
-      );
+      const responce = await axios.delete(`/api/archives/delete/${note._id}`, {
+        headers: { authorization: token },
+      });
       archivesDispatch({
         type: SET_ARCHIVES,
         payload: [...responce.data.archives],
@@ -89,7 +124,6 @@ const ShowAllNotes = ({ note }) => {
       console.log(error);
     }
   }
-  const navigate = useNavigate();
 
   const handleEditNote = (note) => {
     dispatch({ type: SET_NOTE_TITLE, payload: note.noteTitle });
@@ -122,34 +156,44 @@ const ShowAllNotes = ({ note }) => {
               preview
             </span>
 
-            <span
-              className="material-icons md-24 "
-              title="Edit Note"
-              onClick={() => handleEditNote(note)}
-            >
-              edit
-            </span>
-
-            {location.pathname === "/notes/archived" ? (
+            {pathname === "/notes/all-notes" && (
               <span
-                className="material-icons md-24 primary-text"
-                title="Restore From Archives"
-                onClick={() => handleRestoreNotes(note)}
+                className="material-icons md-24 "
+                title="Edit Note"
+                onClick={() => handleEditNote(note)}
               >
-                unarchive
-              </span>
-            ) : (
-              <span
-                className="material-icons md-24 primary-text"
-                title="Move to Archive"
-                onClick={() => handleArchivesNotes(note)}
-              >
-                archive
+                edit
               </span>
             )}
-            <span className="material-icons md-24 " title="BookMark">
-              {note.starred ? "bookmark" : "bookmark_border"}
-            </span>
+
+            {pathname !== "/notes/trashed" &&
+              (pathname === "/notes/archived" ? (
+                <span
+                  className="material-icons md-24 primary-text"
+                  title="Restore From Archives"
+                  onClick={() => handleRestoreNotes(note)}
+                >
+                  unarchive
+                </span>
+              ) : (
+                <span
+                  className="material-icons md-24 primary-text"
+                  title="Move to Archive"
+                  onClick={() => handleArchivesNotes(note)}
+                >
+                  archive
+                </span>
+              ))}
+
+            {pathname === "/notes/all-notes" && (
+              <span
+                className="material-icons md-24 "
+                title="BookMark"
+                onClick={() => hadleNoteBookMark(note)}
+              >
+                {note.starred ? "bookmark" : "bookmark_border"}
+              </span>
+            )}
             <span
               className="material-icons md-24 danger-text"
               title="Delete Note"
@@ -157,7 +201,7 @@ const ShowAllNotes = ({ note }) => {
                 note.inTrash && location.pathname === "/notes/trashed"
                   ? handleDeleteNote(note)
                   : location.pathname === "/notes/archived"
-                  ? handleDelteArchive(note)
+                  ? handleDeleteArchive(note)
                   : handleMoveToTrashNote(note)
               }
             >

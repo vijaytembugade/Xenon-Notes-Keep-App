@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useReducer, useContext, createContext } from "react";
 import { SET_NOTES } from "../../Constants";
 import { useAuth } from "../../Contexts";
@@ -8,7 +9,7 @@ const NotesContext = createContext();
 
 const NotesProvider = ({ children }) => {
   const {
-    authState: { isLoggedIn },
+    authState: { isLoggedIn, token },
   } = useAuth();
 
   const initialState = {
@@ -18,17 +19,20 @@ const NotesProvider = ({ children }) => {
   const [noteState, noteDispatch] = useReducer(notesReducer, initialState);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responce = await customAxios.get("/api/notes");
-        noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
-      } catch (error) {
-        console.log(error);
-      }
-    };
     if (isLoggedIn) {
-      fetchData();
+      (async () => {
+        try {
+          const responce = await axios.get("/api/notes", {
+            headers: { authorization: token },
+          });
+          console.log("from await");
+          noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
     } else {
+      console.log("from else");
       noteDispatch({ type: SET_NOTES, payload: [] });
     }
   }, [isLoggedIn]);

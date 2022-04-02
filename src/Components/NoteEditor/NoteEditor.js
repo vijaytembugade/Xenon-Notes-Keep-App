@@ -2,12 +2,12 @@ import React from "react";
 import Quill from "../Quill/Quill";
 import { useState } from "react";
 import { RESET, SET_NOTES, SET_NOTE_TITLE } from "../../Constants";
-import { customAxios } from "../../Utils";
-import { useNoteDetails, useNotes } from "../../Contexts";
+import { useAuth, useNoteDetails, useNotes } from "../../Contexts";
 
 import LabelCreator from "../LabelCreator/LabelCreator";
 import { useLocation, matchPath, useNavigate } from "react-router-dom";
 import ColorSelector from "../ColorSelector/ColorSelector";
+import axios from "axios";
 
 const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const { pathname } = useLocation();
@@ -16,6 +16,9 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const [note, setNote] = useState(editableNote.note);
 
   const { noteDetailsState, noteDetailsDispatch: dispatch } = useNoteDetails();
+  const {
+    authState: { token },
+  } = useAuth();
 
   const { noteDispatch } = useNotes();
 
@@ -24,9 +27,15 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const handleNoteSave = async () => {
     const entireNote = { note, ...noteDetailsState };
     try {
-      const responce = await customAxios.post("/api/notes", {
-        note: entireNote,
-      });
+      const responce = await axios.post(
+        "/api/notes",
+        {
+          note: entireNote,
+        },
+        {
+          headers: { authorization: token },
+        }
+      );
 
       noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
       dispatch({ type: RESET });
@@ -39,10 +48,13 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const handleEditSave = async () => {
     const entireNote = { note, ...noteDetailsState };
     try {
-      const responce = await customAxios.post(
+      const responce = await axios.post(
         `/api/notes/${editableNote._id}`,
         {
           note: entireNote,
+        },
+        {
+          headers: { authorization: token },
         }
       );
 
