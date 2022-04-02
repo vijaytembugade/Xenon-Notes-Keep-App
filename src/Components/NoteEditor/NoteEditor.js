@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Quill from "../Quill/Quill";
 import { useState } from "react";
-import { RESET, SET_COLOR, SET_NOTES, SET_NOTE_TITLE } from "../../Constants";
+import { RESET, SET_NOTES, SET_NOTE_TITLE } from "../../Constants";
 import { customAxios } from "../../Utils";
 import { useNoteDetails, useNotes } from "../../Contexts";
 
 import LabelCreator from "../LabelCreator/LabelCreator";
 import { useLocation, matchPath, useNavigate } from "react-router-dom";
+import ColorSelector from "../ColorSelector/ColorSelector";
 
 const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const { pathname } = useLocation();
@@ -18,8 +19,7 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
 
   const { noteDispatch } = useNotes();
 
-  const { noteTitle, color, inTrash, priority, starred, tags } =
-    noteDetailsState;
+  const { noteTitle, color, tags } = noteDetailsState;
 
   const handleNoteSave = async () => {
     const entireNote = { note, ...noteDetailsState };
@@ -69,42 +69,7 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
         <div className="new-note">
           <Quill value={note} setValue={setNote} />
           <LabelCreator tags={tags} />
-          <div className="note-color-selector">
-            <input
-              type="radio"
-              checked={color === "secondary"}
-              className="secondary-radio-text"
-              name="color"
-              value="secondary"
-              onChange={() =>
-                dispatch({ type: SET_COLOR, payload: "secondary" })
-              }
-            />
-            <input
-              type="radio"
-              checked={color === "ternary"}
-              className="ternary-radio-text"
-              name="color"
-              value="ternary"
-              onChange={() => dispatch({ type: SET_COLOR, payload: "ternary" })}
-            />
-            <input
-              type="radio"
-              checked={color === "success"}
-              className="success-radio-text"
-              name="color"
-              value="success"
-              onChange={() => dispatch({ type: SET_COLOR, payload: "success" })}
-            />
-            <input
-              type="radio"
-              checked={color === "warning"}
-              className="warning-radio-text"
-              name="color"
-              value="warning"
-              onChange={() => dispatch({ type: SET_COLOR, payload: "warning" })}
-            />
-          </div>
+          <ColorSelector />
 
           {matchPath("/notes/edit/*", pathname) ? (
             <div className="flex-container">
