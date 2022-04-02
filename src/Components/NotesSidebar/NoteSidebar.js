@@ -11,7 +11,7 @@ const NoteSidebar = () => {
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           <li>
-            <span class="material-icons">text_snippet</span>
+            <span className="material-icons">text_snippet</span>
             <span> Notes</span>
           </li>
         </NavLink>
@@ -20,7 +20,7 @@ const NoteSidebar = () => {
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           <li>
-            <span class="material-icons">label</span>
+            <span className="material-icons">label</span>
             <span> Label</span>
           </li>
         </NavLink>
@@ -29,7 +29,7 @@ const NoteSidebar = () => {
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           <li>
-            <span class="material-icons">archive</span>
+            <span className="material-icons">archive</span>
             <span>Archied</span>
           </li>
         </NavLink>
@@ -39,7 +39,7 @@ const NoteSidebar = () => {
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           <li>
-            <span class="material-icons">delete</span>
+            <span className="material-icons">delete</span>
             <span>Trash</span>
           </li>
         </NavLink>

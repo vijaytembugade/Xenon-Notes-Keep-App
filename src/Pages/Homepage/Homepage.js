@@ -15,7 +15,7 @@ const Homepage = () => {
 
         <div className="flex-container-verticle homepage-image">
           <div className="flex-container-verticle">
-            <Link to="/notes">
+            <Link to="/notes/all-notes">
               <button className="btn btn-success start-now ">
                 Click here to get started!
               </button>

@@ -32,7 +32,7 @@ const ThemeProvider = ({ children }) => {
 const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useAuth must be used within a AuthProvider");
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
 
   return context;

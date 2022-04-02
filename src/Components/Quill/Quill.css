@@ -46,6 +46,10 @@
 .ql-snow.ql-toolbar button.ql-active .ql-fill {
   fill: var(--secondary-color);
 }
+
+.ql-editor.ql-blank:before {
+  color: var(--gray-color);
+}
 .my-editing-area {
   height: 10rem;
 }
