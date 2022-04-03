@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Quill from "../Quill/Quill";
 import { useState } from "react";
 import { useLocation, matchPath, useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   } = useAuth();
 
   const { noteDispatch } = useNotes();
+
   const { noteTitle, tags } = noteDetailsState;
 
   const handleNoteSave = async () => {
@@ -43,8 +44,10 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
 
   const handleEditSave = async () => {
     const entireNote = { note, ...noteDetailsState };
+    const { _id } = editableNote;
+    console.log(entireNote);
     try {
-      const responce = await noteEditService(entireNote, token);
+      const responce = await noteEditService(entireNote, token, _id);
 
       if (responce !== undefined && responce.status === 201) {
         noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
