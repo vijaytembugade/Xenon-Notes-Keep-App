@@ -1,6 +1,6 @@
 import React from "react";
 
-import ShowAllNotes from "../ShowAllNotes/ShowAllNotes";
+import NoteContainer from "../NoteContainer/NoteContainer";
 import "./BookMarkedNotes.css";
 
 const BookMarkedNotes = ({ bookMarkedNotes }) => {
@@ -9,7 +9,7 @@ const BookMarkedNotes = ({ bookMarkedNotes }) => {
       <div className="bookmarkedNotes-conatiner">
         <div className="show-all-notes-container">
           {bookMarkedNotes?.map((note) => {
-            return <ShowAllNotes note={note} key={note._id} />;
+            return <NoteContainer note={note} key={note._id} />;
           })}
         </div>
       </div>

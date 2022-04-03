@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNotes } from "../../Contexts";
 import { getLabels, removeTrashedNotes } from "../../Utils";
-import ShowAllNotes from "../ShowAllNotes/ShowAllNotes";
+import NoteContainer from "../NoteContainer/NoteContainer";
 import "./LabledNotes.css";
 
 const LabledNotes = () => {
@@ -53,11 +53,11 @@ const LabledNotes = () => {
       <div className="show-all-notes-container">
         {!showOnlyLabledNote &&
           mainNotes.map((note) => {
-            return <ShowAllNotes note={note} key={note._id} />;
+            return <NoteContainer note={note} key={note._id} />;
           })}
         {showOnlyLabledNote &&
           labedNotes.map((note) => {
-            return <ShowAllNotes note={note} key={note._id} />;
+            return <NoteContainer note={note} key={note._id} />;
           })}
       </div>
     </div>

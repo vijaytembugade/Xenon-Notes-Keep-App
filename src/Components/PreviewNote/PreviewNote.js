@@ -1,10 +1,12 @@
 import React from "react";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import "./PreviewNote.css";
 
 const PreviewNote = ({ note, setNoteShow }) => {
+  useLockBodyScroll();
   return (
-    <div>
-      <dialog open className={`modal ${note.color}-bg-color`}>
+    <div className="modal">
+      <dialog open>
         <h2>Title : {note.noteTitle}</h2>
         <div dangerouslySetInnerHTML={{ __html: note.note }}></div>
         <span className="close-modal danger-bg-color ">

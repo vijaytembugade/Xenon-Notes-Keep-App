@@ -3,6 +3,7 @@ import { useAuth } from "../../Contexts";
 import { useNavigate } from "react-router-dom";
 import "./UserDetails.css";
 import { LOGOUT } from "../../Constants";
+import { logoutService } from "../../Services";
 
 const UserDetails = () => {
   const {
@@ -13,8 +14,7 @@ const UserDetails = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("AUTH_TOKEN");
-    localStorage.removeItem("AUTH_USER");
+    logoutService();
     authDispatch({ type: LOGOUT });
     navigate("/");
   };

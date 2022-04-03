@@ -1,14 +1,14 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "../../Constants";
 import { useAuth } from "../../Contexts";
+import { loginService } from "../../Services";
 import Loader from "../Loader/Loader";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const {
-    authState: { isLoggedIn, loading },
+    authState: { loading },
     authDispatch,
   } = useAuth();
 
@@ -22,16 +22,18 @@ const LoginForm = () => {
         throw new Error("Email or Password could not be empty");
       }
       authDispatch({ type: LOGIN_REQUEST });
-      const responce = await axios.post("/api/auth/login", {
-        email: email,
-        password: password,
-      });
-      localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
-      localStorage.setItem("AUTH_USER", responce.data.foundUser.email);
-      authDispatch({
-        type: LOGIN_SUCCESS,
-      });
-      navigate("/");
+      const responce = await loginService(email, password);
+
+      if (responce !== undefined) {
+        localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
+        localStorage.setItem("AUTH_USER", responce.data.foundUser.email);
+        authDispatch({
+          type: LOGIN_SUCCESS,
+        });
+        navigate("/");
+      } else {
+        throw new Error("Invalid Credentials");
+      }
     } catch (error) {
       console.log(error);
       authDispatch({
