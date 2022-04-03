@@ -7,12 +7,13 @@ ul {
   position: sticky;
   top: 0;
   bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .notesidebar-list > a > li {
   padding: 1rem 0 1rem 2rem;
   cursor: pointer;
-  /* width: 15rem; */
   display: flex;
   gap: 1rem;
 }
