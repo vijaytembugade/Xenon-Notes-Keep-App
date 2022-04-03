@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const noteEditService = async (note, token, _id) => {
-  console.log(note);
   try {
     const responce = await axios.post(
       `/api/notes/${_id}`,
