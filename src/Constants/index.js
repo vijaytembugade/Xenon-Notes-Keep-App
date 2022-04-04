@@ -23,3 +23,9 @@ export {
 } from "./NoteDetailsConstants/notes-details-constants";
 
 export { SET_ARCHIVES } from "./ArchivesConstants/archives-constants";
+
+export {
+  SORT_BY_DATE,
+  SORT_BY_PRIORITY,
+  CLEAR_FILTER,
+} from "./filterConstants/filter-constants";

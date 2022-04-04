@@ -11,6 +11,7 @@ export const noteSaveService = async (note, token) => {
         headers: { authorization: token },
       }
     );
+    console.log(responce);
     return responce;
   } catch (error) {
     console.log(error);

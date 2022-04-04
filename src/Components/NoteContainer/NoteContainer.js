@@ -51,7 +51,8 @@ const NoteContainer = ({ note }) => {
   async function handleDeleteNote(note) {
     try {
       const responce = await noteDeleteService(note, token);
-      if (responce !== undefined && responce.status === 201) {
+      console.log(responce);
+      if (responce !== undefined && responce.status === 200) {
         noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
       } else {
         throw new Error("Unble to proccess the request");
