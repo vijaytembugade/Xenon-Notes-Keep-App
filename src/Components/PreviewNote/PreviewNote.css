@@ -1,18 +1,35 @@
+.modal {
+  background: rgba(83, 83, 83, 0.9);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 dialog {
   position: fixed;
-  width: 50vw;
+  min-width: 20vw;
+  max-width: 50vw;
   top: 10%;
   overflow-y: auto;
   height: 30rem;
-  z-index: 2;
+  z-index: 3;
   border-radius: 1rem;
-}
-::backdrop {
-  --bg-color: blue;
+  background-color: var(--classic-color);
+  opacity: 1;
+  color: var(--text-color);
 }
 
-dialog::backdrop {
-  background: var(--bg-color);
+dialog::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 50px;
+}
+
+/* Handle */
+dialog::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
 }
 
 .close-modal {

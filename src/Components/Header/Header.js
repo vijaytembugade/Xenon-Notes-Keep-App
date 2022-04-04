@@ -54,7 +54,7 @@ function Header() {
 
           {isLoggedIn && (
             <li>
-              <NavLink to="/notes" className="nav-item">
+              <NavLink to="/notes/all-notes" className="nav-item">
                 <span className="material-icons md-24">text_snippet</span>
               </NavLink>
             </li>

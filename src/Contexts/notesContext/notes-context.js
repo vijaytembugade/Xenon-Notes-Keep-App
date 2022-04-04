@@ -3,7 +3,11 @@ import { useEffect, useReducer, useContext, createContext } from "react";
 import { SET_NOTES } from "../../Constants";
 import { useAuth } from "../../Contexts";
 import { notesReducer } from "../../Reducers";
-import { customAxios } from "../../Utils";
+import {
+  getBookMarkedNotes,
+  getNoNBookMarkedNotes,
+  removeTrashedNotes,
+} from "../../Utils";
 
 const NotesContext = createContext();
 
@@ -25,19 +29,24 @@ const NotesProvider = ({ children }) => {
           const responce = await axios.get("/api/notes", {
             headers: { authorization: token },
           });
-          console.log("from await");
           noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
         } catch (error) {
           console.log(error);
         }
       })();
     } else {
-      console.log("from else");
       noteDispatch({ type: SET_NOTES, payload: [] });
     }
   }, [isLoggedIn]);
+
+  const notes = removeTrashedNotes(noteState.notes);
+  const bookMarkedNotes = getBookMarkedNotes(notes);
+  const mainNotes = getNoNBookMarkedNotes(notes);
+
   return (
-    <NotesContext.Provider value={{ noteState, noteDispatch }}>
+    <NotesContext.Provider
+      value={{ noteState, noteDispatch, bookMarkedNotes, mainNotes }}
+    >
       {children}
     </NotesContext.Provider>
   );

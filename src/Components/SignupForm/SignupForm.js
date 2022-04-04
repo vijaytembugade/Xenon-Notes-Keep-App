@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SIGNUP_FAIL, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../../Constants";
 import { useAuth } from "../../Contexts";
+import { signupService } from "../../Services";
 import Loader from "../Loader/Loader";
 
 const SignupForm = () => {
@@ -31,18 +32,18 @@ const SignupForm = () => {
         throw new Error("Invalid Credentials");
       } else {
         authDispatch({ type: SIGNUP_REQUEST });
-        const responce = await axios.post("/api/auth/signup", {
-          email,
-          password,
-        });
-
+        const responce = await signupService(email, password);
         console.log(responce);
-        localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
-        localStorage.setItem("AUTH_USER", responce.data.createdUser.email);
-        authDispatch({
-          type: SIGNUP_SUCCESS,
-        });
-        navigate("/");
+        if (responce !== undefined && responce.status === 201) {
+          localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
+          localStorage.setItem("AUTH_USER", responce.data.createdUser.email);
+          authDispatch({
+            type: SIGNUP_SUCCESS,
+          });
+          navigate("/");
+        } else {
+          throw new Error("Invalid Credentials Or Parameter!");
+        }
       }
     } catch (error) {
       console.log(error);

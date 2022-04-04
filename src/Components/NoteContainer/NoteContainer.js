@@ -9,10 +9,19 @@ import {
   SET_TAGS,
 } from "../../Constants";
 import { useArchives, useAuth, useNoteDetails, useNotes } from "../../Contexts";
+import {
+  noteArchiveDeleteService,
+  noteArchiveService,
+  noteBookMarkService,
+  noteDeleteService,
+  noteMoveToTrashService,
+  noteRestoreFromArchive,
+  noteRestoreFromTrashService,
+} from "../../Services";
 import PreviewNote from "../PreviewNote/PreviewNote";
-import "./ShowAllNotes.css";
+import "./NoteContainer.css";
 
-const ShowAllNotes = ({ note }) => {
+const NoteContainer = ({ note }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -28,16 +37,12 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleMoveToTrashNote(note) {
     try {
-      const responce = await axios.post(
-        `/api/notes/${note._id}`,
-        {
-          note: { ...note, inTrash: true },
-        },
-        {
-          headers: { authorization: token },
-        }
-      );
-      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const responce = await noteMoveToTrashService(note, token);
+      if (responce !== undefined && responce.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      } else {
+        throw new Error("Unble to proccess the request");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -45,10 +50,12 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleDeleteNote(note) {
     try {
-      const responce = await axios.delete(`/api/notes/${note._id}`, {
-        headers: { authorization: token },
-      });
-      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const responce = await noteDeleteService(note, token);
+      if (responce !== undefined && responce.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      } else {
+        throw new Error("Unble to proccess the request");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -56,16 +63,12 @@ const ShowAllNotes = ({ note }) => {
 
   async function hadleNoteBookMark(note) {
     try {
-      const responce = await axios.post(
-        `/api/notes/${note._id}`,
-        {
-          note: { ...note, starred: !note.starred },
-        },
-        {
-          headers: { authorization: token },
-        }
-      );
-      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const responce = await noteBookMarkService(note, token);
+      if (responce !== undefined && responce.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      } else {
+        throw new Error("Unble to proccess the request");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -73,39 +76,34 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleArchivesNotes(note) {
     try {
-      const responce = await axios.post(
-        `/api/notes/archives/${note._id}`,
-        {
-          note,
-        },
-        {
-          headers: { authorization: token },
-        }
-      );
-      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
-      archivesDispatch({
-        type: SET_ARCHIVES,
-        payload: [...responce.data.archives],
-      });
+      const responce = await noteArchiveService(note, token);
+      if (responce !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+        archivesDispatch({
+          type: SET_ARCHIVES,
+          payload: [...responce.data.archives],
+        });
+      } else {
+        throw new Error("Unble to Archive the Note!");
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function handleRestoreNotes(note) {
+  async function handleRestoreFromArchivesNotes(note) {
     try {
-      const responce = await axios.post(
-        `/api/archives/restore/${note._id}`,
-        {},
-        {
-          headers: { authorization: token },
-        }
-      );
-      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
-      archivesDispatch({
-        type: SET_ARCHIVES,
-        payload: [...responce.data.archives],
-      });
+      const responce = await noteRestoreFromArchive(note, token);
+      console.log(responce);
+      if (responce !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+        archivesDispatch({
+          type: SET_ARCHIVES,
+          payload: [...responce.data.archives],
+        });
+      } else {
+        throw new Error("Unble to restore the note! ");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -113,29 +111,27 @@ const ShowAllNotes = ({ note }) => {
 
   async function handleDeleteArchive(note) {
     try {
-      const responce = await axios.delete(`/api/archives/delete/${note._id}`, {
-        headers: { authorization: token },
-      });
-      archivesDispatch({
-        type: SET_ARCHIVES,
-        payload: [...responce.data.archives],
-      });
+      const responce = await noteArchiveDeleteService(note, token);
+      if (responce !== undefined) {
+        archivesDispatch({
+          type: SET_ARCHIVES,
+          payload: [...responce.data.archives],
+        });
+      } else {
+        throw new Error("Unable to Delete the Note!");
+      }
     } catch (error) {
       console.log(error);
     }
   }
   async function handleRestoreNoteFromTrash(note) {
     try {
-      const responce = await axios.post(
-        `/api/notes/${note._id}`,
-        {
-          note: { ...note, inTrash: false },
-        },
-        {
-          headers: { authorization: token },
-        }
-      );
-      noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const responce = await noteRestoreFromTrashService(note, token);
+      if (responce !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      } else {
+        throw new Error("Unable to restore the note!");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -187,7 +183,7 @@ const ShowAllNotes = ({ note }) => {
                 <span
                   className="material-icons md-24 primary-text"
                   title="Restore From Archives"
-                  onClick={() => handleRestoreNotes(note)}
+                  onClick={() => handleRestoreFromArchivesNotes(note)}
                 >
                   unarchive
                 </span>
@@ -244,4 +240,4 @@ const ShowAllNotes = ({ note }) => {
   );
 };
 
-export default ShowAllNotes;
+export default NoteContainer;

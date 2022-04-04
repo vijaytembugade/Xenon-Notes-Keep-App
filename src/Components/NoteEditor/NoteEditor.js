@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Quill from "../Quill/Quill";
 import { useState } from "react";
+import { useLocation, matchPath, useNavigate } from "react-router-dom";
+
 import { RESET, SET_NOTES, SET_NOTE_TITLE } from "../../Constants";
 import { useAuth, useNoteDetails, useNotes } from "../../Contexts";
+import { noteEditService, noteSaveService } from "../../Services";
 
 import LabelCreator from "../LabelCreator/LabelCreator";
-import { useLocation, matchPath, useNavigate } from "react-router-dom";
 import ColorSelector from "../ColorSelector/ColorSelector";
-import axios from "axios";
 
 const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const { pathname } = useLocation();
@@ -22,24 +23,20 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
 
   const { noteDispatch } = useNotes();
 
-  const { noteTitle, color, tags } = noteDetailsState;
+  const { noteTitle, tags } = noteDetailsState;
 
   const handleNoteSave = async () => {
     const entireNote = { note, ...noteDetailsState };
     try {
-      const responce = await axios.post(
-        "/api/notes",
-        {
-          note: entireNote,
-        },
-        {
-          headers: { authorization: token },
-        }
-      );
-
-      noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
-      dispatch({ type: RESET });
-      setShowNoteEditor(false);
+      const responce = await noteSaveService(entireNote, token);
+      console.log(responce);
+      if (responce !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+        dispatch({ type: RESET });
+        setShowNoteEditor(false);
+      } else {
+        throw new Error("Unable to Save Note!");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -47,19 +44,17 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
 
   const handleEditSave = async () => {
     const entireNote = { note, ...noteDetailsState };
+    const { _id } = editableNote;
+    console.log(entireNote);
     try {
-      const responce = await axios.post(
-        `/api/notes/${editableNote._id}`,
-        {
-          note: entireNote,
-        },
-        {
-          headers: { authorization: token },
-        }
-      );
+      const responce = await noteEditService(entireNote, token, _id);
 
-      noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
-      navigate("/notes/all-notes");
+      if (responce !== undefined && responce.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+        navigate("/notes/all-notes");
+      } else {
+        throw new Error("Unable to Edit Note!");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +63,13 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   return (
     <>
       <div className="note-editor">
-        <div className="title title-md secondary-text">Create New Note</div>
+        {editableNote ? (
+          <div className="title title-md secondary-text">
+            Edit Note with id: {editableNote._id}
+          </div>
+        ) : (
+          <div className="title title-md secondary-text">Create New Note</div>
+        )}
         <input
           className="note-title"
           type="text"

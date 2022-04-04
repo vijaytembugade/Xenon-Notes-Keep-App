@@ -1,24 +1,14 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./AllNotes.css";
 import NoteEditor from "../NoteEditor/NoteEditor";
 import { useNotes } from "../../Contexts";
-import ShowAllNotes from "../ShowAllNotes/ShowAllNotes";
-import {
-  getBookMarkedNotes,
-  getNoNBookMarkedNotes,
-  removeTrashedNotes,
-} from "../../Utils";
+import NoteContainer from "../NoteContainer/NoteContainer";
 import BookMarkedNotes from "../BookMarkedNotes/BookMarkedNotes";
 
 const AllNotes = () => {
   const [showNoteEditor, setShowNoteEditor] = useState(false);
 
-  const { noteState } = useNotes();
-
-  const notes = removeTrashedNotes(noteState.notes);
-  const bookMarkedNotes = getBookMarkedNotes(notes);
-  const mainNotes = getNoNBookMarkedNotes(notes);
+  const { bookMarkedNotes, mainNotes } = useNotes();
 
   return (
     <>
@@ -46,7 +36,7 @@ const AllNotes = () => {
         )}
         <div className="show-all-notes-container">
           {mainNotes.map((note) => {
-            return <ShowAllNotes note={note} key={note._id} />;
+            return <NoteContainer note={note} key={note._id} />;
           })}
         </div>
       </div>

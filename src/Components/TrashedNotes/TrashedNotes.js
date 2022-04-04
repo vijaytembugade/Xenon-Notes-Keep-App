@@ -1,7 +1,7 @@
 import React from "react";
 import { useNotes } from "../../Contexts";
 import "./TrashedNotes.css";
-import ShowAllNotes from "../ShowAllNotes/ShowAllNotes";
+import NoteContainer from "../NoteContainer/NoteContainer";
 
 const TrashedNotes = () => {
   const {
@@ -15,7 +15,7 @@ const TrashedNotes = () => {
       {trashedNotes.map((note) => {
         return (
           <div className="">
-            <ShowAllNotes note={note} />
+            <NoteContainer note={note} />
           </div>
         );
       })}
