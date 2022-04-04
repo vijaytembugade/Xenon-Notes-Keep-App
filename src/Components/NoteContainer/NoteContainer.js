@@ -6,6 +6,7 @@ import {
   SET_COLOR,
   SET_NOTES,
   SET_NOTE_TITLE,
+  SET_PRIORITY,
   SET_TAGS,
 } from "../../Constants";
 import { useArchives, useAuth, useNoteDetails, useNotes } from "../../Contexts";
@@ -142,6 +143,7 @@ const NoteContainer = ({ note }) => {
     dispatch({ type: SET_NOTE_TITLE, payload: note.noteTitle });
     dispatch({ type: SET_COLOR, payload: note.color });
     dispatch({ type: SET_TAGS, payload: note.tags });
+    dispatch({ type: SET_PRIORITY, payload: note.priority });
     navigate(`/notes/edit/${note._id}`);
   };
 
