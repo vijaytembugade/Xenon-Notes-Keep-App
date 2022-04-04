@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const noteEditService = async (note, token, _id) => {
   try {
-    const responce = await axios.post(
+    const response = await axios.post(
       `/api/notes/${_id}`,
       {
         note: note,
@@ -12,8 +12,8 @@ export const noteEditService = async (note, token, _id) => {
       }
     );
 
-    console.log(responce);
-    return responce;
+    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
     return;

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const noteRestoreFromArchive = async (note, token) => {
   try {
-    const responce = await axios.post(
+    const response = await axios.post(
       `/api/archives/restore/${note._id}`,
       {},
       {
@@ -10,7 +10,7 @@ export const noteRestoreFromArchive = async (note, token) => {
       }
     );
 
-    return responce;
+    return response;
   } catch (error) {
     console.log(error);
     return;

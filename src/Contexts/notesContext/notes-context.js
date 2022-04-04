@@ -26,10 +26,10 @@ const NotesProvider = ({ children }) => {
     if (isLoggedIn) {
       (async () => {
         try {
-          const responce = await axios.get("/api/notes", {
+          const response = await axios.get("/api/notes", {
             headers: { authorization: token },
           });
-          noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+          noteDispatch({ type: SET_NOTES, payload: response.data.notes });
         } catch (error) {
           console.log(error);
         }

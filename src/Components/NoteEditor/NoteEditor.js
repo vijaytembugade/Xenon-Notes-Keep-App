@@ -33,10 +33,10 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
   const handleNoteSave = async () => {
     const entireNote = { note, ...noteDetailsState };
     try {
-      const responce = await noteSaveService(entireNote, token);
-      console.log(responce);
-      if (responce !== undefined) {
-        noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+      const response = await noteSaveService(entireNote, token);
+      console.log(response);
+      if (response !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: response.data.notes });
         dispatch({ type: RESET });
         setShowNoteEditor(false);
       } else {
@@ -52,10 +52,10 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
     const { _id } = editableNote;
     console.log(entireNote);
     try {
-      const responce = await noteEditService(entireNote, token, _id);
+      const response = await noteEditService(entireNote, token, _id);
 
-      if (responce !== undefined && responce.status === 201) {
-        noteDispatch({ type: SET_NOTES, payload: responce.data.notes });
+      if (response !== undefined && response.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: response.data.notes });
         navigate("/notes/all-notes");
       } else {
         throw new Error("Unable to Edit Note!");

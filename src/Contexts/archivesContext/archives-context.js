@@ -22,12 +22,12 @@ const ArchivesProvider = ({ children }) => {
     if (isLoggedIn) {
       (async () => {
         try {
-          const responce = await axios.get("/api/archives", {
+          const response = await axios.get("/api/archives", {
             headers: { authorization: token },
           });
           archivesDispatch({
             type: SET_ARCHIVES,
-            payload: responce.data.archives,
+            payload: response.data.archives,
           });
         } catch (error) {
           console.log(error);
