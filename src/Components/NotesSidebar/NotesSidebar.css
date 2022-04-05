@@ -33,4 +33,8 @@ ul {
   .notesidebar-list > a > li {
     width: 10rem;
   }
+
+  .notesidebar {
+    display: none;
+  }
 }

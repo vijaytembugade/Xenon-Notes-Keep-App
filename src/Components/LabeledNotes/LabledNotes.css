@@ -1,6 +1,7 @@
 .all-labels-contailer {
   margin: 1rem;
   flex: 0.8;
+  height: 100vh;
 }
 .label-container {
   display: flex;

@@ -30,7 +30,7 @@ const NoteSidebar = () => {
         >
           <li>
             <span className="material-icons">archive</span>
-            <span>Archied</span>
+            <span>Archived</span>
           </li>
         </NavLink>
 

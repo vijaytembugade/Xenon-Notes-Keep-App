@@ -1,0 +1,19 @@
+.responsive-sidebar {
+  margin: 3rem 0rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 75%;
+  background-color: var(--classic-color);
+  height: 100vh;
+}
+.responsive-sidebar > div {
+  padding: 1rem;
+  color: var(--dtext-color);
+}
+
+.responsive-sidebar > div:hover {
+  background-color: var(--light-color);
+}

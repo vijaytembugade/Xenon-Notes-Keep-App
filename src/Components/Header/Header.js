@@ -1,11 +1,13 @@
-import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, matchPath, NavLink, useLocation } from "react-router-dom";
 import { useAuth, useTheme } from "../../Contexts";
 import Logo from "../Logo/Logo";
+import ResponsiveSidebar from "../ResponsiveSidebar/ResponsiveSidebar";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
 
 function Header() {
+  const [showNavbar, setShowNavbar] = useState();
   const {
     authState: { isLoggedIn },
   } = useAuth();
@@ -19,6 +21,18 @@ function Header() {
   return (
     <>
       <nav className="text-dark ">
+        {matchPath("/notes/*", pathname) && (
+          <div
+            id="hamburger"
+            className="hamburger"
+            onClick={() => setShowNavbar(!showNavbar)}
+          >
+            <span className="material-icons md-18"> menu </span>
+          </div>
+        )}
+
+        {showNavbar && <ResponsiveSidebar setShowNavbar={setShowNavbar} />}
+
         <div className="nav-brand">
           <img className="logo" src="/logo.png" alt="Xenon" />
           <Link to="/">
@@ -84,36 +98,6 @@ function Header() {
             </li>
           )}
         </ul>
-
-        {/* <div id="hamburger" className="hamburger">
-          <span className="material-icons md-36"> menu </span>
-        </div> */}
-
-        {/* <div className="responsive-navbar display-navbar">
-          <div id="closeNavbar" className="danger-text">
-            <span className="material-icons md-36"> close </span>
-            Close
-          </div>
-          <a href="" className="nav-item">
-            {" "}
-            Home{" "}
-          </a>
-          <a href="" className="nav-item">
-            About
-          </a>
-          <a href="" className="nav-item">
-            Settings
-          </a>
-          <a href="" className="nav-item">
-            Contact
-          </a>
-          <a href="" className="nav-item">
-            <img
-              className="avatar-sm"
-              src="https://miro.medium.com/fit/c/262/262/1*MFLNc70kh8oLPUsDaUH4sg.jpeg"
-            />
-          </a>
-        </div> */}
       </nav>
     </>
   );
