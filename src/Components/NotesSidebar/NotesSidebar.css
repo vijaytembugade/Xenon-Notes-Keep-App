@@ -10,6 +10,9 @@ ul {
   right: 0;
   left: 0;
 }
+.notesidebar-list {
+  color: var(--text-color);
+}
 
 .notesidebar-list > a > li {
   padding: 1rem 0 1rem 2rem;
@@ -32,5 +35,9 @@ ul {
 @media only screen and (max-width: 768px) {
   .notesidebar-list > a > li {
     width: 10rem;
+  }
+
+  .notesidebar {
+    display: none;
   }
 }

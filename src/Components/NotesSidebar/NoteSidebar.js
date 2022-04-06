@@ -5,7 +5,7 @@ import "./NotesSidebar.css";
 const NoteSidebar = () => {
   return (
     <div className="notesidebar">
-      <ul className="notesidebar-list dark-text">
+      <ul className="notesidebar-list ">
         <NavLink
           to="/notes/all-notes"
           className={({ isActive }) => (isActive ? "active" : "")}
@@ -30,7 +30,7 @@ const NoteSidebar = () => {
         >
           <li>
             <span className="material-icons">archive</span>
-            <span>Archied</span>
+            <span>Archived</span>
           </li>
         </NavLink>
 
