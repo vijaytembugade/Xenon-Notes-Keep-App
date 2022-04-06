@@ -28,6 +28,7 @@ https://kxeep.netlify.app/
 - Filter by Labels
 - Authentication
 - Dark/Light Mode
+- Responsiveness
 
 ## Utilizations
 - useState and contextAPI
