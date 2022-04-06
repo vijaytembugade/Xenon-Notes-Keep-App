@@ -51,7 +51,6 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
   gap: 1rem;
   padding: 2rem 0rem;
 }
@@ -85,5 +84,13 @@ input[type="radio"].warning-radio-text {
     margin: 1rem;
     gap: 0.5rem;
     flex-wrap: wrap;
+  }
+  .show-all-notes-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 0rem;
   }
 }
