@@ -144,7 +144,7 @@ const NoteEditor = ({ setShowNoteEditor, editableNote }) => {
                 className="btn  btn-primary-outline"
                 onClick={() => setShowNoteEditor(false)}
               >
-                Cancle
+                Cancel
               </button>
             </div>
           )}
