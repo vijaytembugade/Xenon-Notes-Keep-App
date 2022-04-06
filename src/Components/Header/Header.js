@@ -7,7 +7,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
 
 function Header() {
-  const [showNavbar, setShowNavbar] = useState();
+  const [showNavbar, setShowNavbar] = useState(false);
   const {
     authState: { isLoggedIn },
   } = useAuth();
@@ -27,7 +27,10 @@ function Header() {
             className="hamburger"
             onClick={() => setShowNavbar(!showNavbar)}
           >
-            <span className="material-icons md-18"> menu </span>
+            <span className="material-icons md-18">
+              {" "}
+              {!showNavbar ? "menu" : "close"}{" "}
+            </span>
           </div>
         )}
 

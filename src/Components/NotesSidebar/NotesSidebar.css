@@ -10,6 +10,9 @@ ul {
   right: 0;
   left: 0;
 }
+.notesidebar-list {
+  color: var(--text-color);
+}
 
 .notesidebar-list > a > li {
   padding: 1rem 0 1rem 2rem;

@@ -17,3 +17,9 @@
 .responsive-sidebar > div:hover {
   background-color: var(--light-color);
 }
+
+@media only screen and (min-width: 768px) {
+  .responsive-sidebar {
+    display: none;
+  }
+}
