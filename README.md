@@ -34,7 +34,7 @@ https://kxeep.netlify.app/
 - useReducer and useContext
 - custom context hooks
 - Frontend authentication(with JWT)
-- Quil - Rich Text Editor
+- Quill - Rich Text Editor
 - React-router-DOM
 - Axios
 
