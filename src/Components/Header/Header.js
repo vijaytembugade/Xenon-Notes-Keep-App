@@ -27,9 +27,9 @@ function Header() {
             className="hamburger"
             onClick={() => setShowNavbar(!showNavbar)}
           >
-            <span className="material-icons md-18">
+            <span className="material-icons md-24">
               {" "}
-              {!showNavbar ? "menu" : "close"}{" "}
+              {!showNavbar ? "menu" : "close"}
             </span>
           </div>
         )}
