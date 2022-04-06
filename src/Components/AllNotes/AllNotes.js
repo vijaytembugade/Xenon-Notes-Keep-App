@@ -26,18 +26,20 @@ const AllNotes = () => {
   return (
     <>
       <div className="allnotes-container">
-        {!showNoteEditor && (
-          <button
-            className="btn btn-ternary-outline"
-            onClick={() => setShowNoteEditor(true)}
-          >
-            <span className="material-icons">add_circle</span>
-            Create New Note
-          </button>
-        )}
-        {showNoteEditor && <NoteEditor setShowNoteEditor={setShowNoteEditor} />}
+        <div className="create-note-filter">
+          {!showNoteEditor && (
+            <button
+              className="btn btn-ternary-outline mr-1"
+              onClick={() => setShowNoteEditor(true)}
+            >
+              <span className="material-icons">add_circle</span>
+              Create New Note
+            </button>
+          )}
+          {!showNoteEditor && <NotesFilter />}
+        </div>
 
-        {!showNoteEditor && <NotesFilter />}
+        {showNoteEditor && <NoteEditor setShowNoteEditor={setShowNoteEditor} />}
 
         <div>
           {bookMarkedNotes.length > 0 && (

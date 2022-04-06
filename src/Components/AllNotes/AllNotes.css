@@ -9,7 +9,12 @@
   gap: 0.5rem;
   flex-wrap: wrap;
 }
-
+.create-note-filter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 .note-editor {
   display: flex;
   flex-direction: column;
@@ -92,5 +97,12 @@ input[type="radio"].warning-radio-text {
     justify-content: center;
     gap: 1rem;
     padding: 2rem 0rem;
+  }
+  .create-note-filter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 }
