@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const noteRestoreFromTrashService = async (note, token) => {
   try {
-    const responce = await axios.post(
+    const response = await axios.post(
       `/api/notes/${note._id}`,
       {
         note: { ...note, inTrash: false },
@@ -11,7 +11,7 @@ export const noteRestoreFromTrashService = async (note, token) => {
         headers: { authorization: token },
       }
     );
-    return responce;
+    return response;
   } catch (error) {
     console.log(error);
     return;

@@ -2,11 +2,11 @@ import axios from "axios";
 
 export const loginService = async (email, password) => {
   try {
-    const responce = await axios.post("/api/auth/login", {
+    const response = await axios.post("/api/auth/login", {
       email: email,
       password: password,
     });
-    return responce;
+    return response;
   } catch (error) {
     return;
   }

@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 import "./AllNotes.css";
 import NoteEditor from "../NoteEditor/NoteEditor";
-import { useNotes } from "../../Contexts";
+import { useFilter, useNotes } from "../../Contexts";
 import NoteContainer from "../NoteContainer/NoteContainer";
 import BookMarkedNotes from "../BookMarkedNotes/BookMarkedNotes";
+import NotesFilter from "../NotesFilter/NotesFilter";
+import { priorityFilter, sortByDateFilter } from "../../Utils";
 
 const AllNotes = () => {
   const [showNoteEditor, setShowNoteEditor] = useState(false);
-
   const { bookMarkedNotes, mainNotes } = useNotes();
+  const {
+    filterState: { sortByDate, sortByPriority },
+  } = useFilter();
+
+  const sortbyDateFilterNotes = sortByDateFilter(mainNotes, sortByDate);
+
+  const priorityByFilterNotes = priorityFilter(
+    sortbyDateFilterNotes,
+    sortByPriority
+  );
+
+  const notes = priorityByFilterNotes;
 
   return (
     <>
@@ -24,6 +37,8 @@ const AllNotes = () => {
         )}
         {showNoteEditor && <NoteEditor setShowNoteEditor={setShowNoteEditor} />}
 
+        {!showNoteEditor && <NotesFilter />}
+
         <div>
           {bookMarkedNotes.length > 0 && (
             <span className="title">Bookmarked</span>
@@ -35,7 +50,7 @@ const AllNotes = () => {
           <span className="title">Others</span>
         )}
         <div className="show-all-notes-container">
-          {mainNotes.map((note) => {
+          {notes.map((note) => {
             return <NoteContainer note={note} key={note._id} />;
           })}
         </div>

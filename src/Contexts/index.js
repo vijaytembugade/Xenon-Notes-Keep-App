@@ -10,3 +10,5 @@ export {
   useArchives,
   ArchivesProvider,
 } from "./archivesContext/archives-context";
+
+export { useFilter, FilterProvider } from "./filterContext/filter-context";

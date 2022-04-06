@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const noteMoveToTrashService = async (note, token) => {
   try {
-    const responce = await axios.post(
+    const response = await axios.post(
       `/api/notes/${note._id}`,
       {
         note: { ...note, inTrash: true },
@@ -12,7 +12,7 @@ export const noteMoveToTrashService = async (note, token) => {
       }
     );
 
-    return responce;
+    return response;
   } catch (error) {
     console.log(error);
     return;

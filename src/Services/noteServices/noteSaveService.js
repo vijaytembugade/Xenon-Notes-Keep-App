@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const noteSaveService = async (note, token) => {
   try {
-    const responce = await axios.post(
+    const response = await axios.post(
       "/api/notes",
       {
         note,
@@ -11,7 +11,8 @@ export const noteSaveService = async (note, token) => {
         headers: { authorization: token },
       }
     );
-    return responce;
+    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
     return;

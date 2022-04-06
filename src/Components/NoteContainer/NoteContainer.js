@@ -6,6 +6,7 @@ import {
   SET_COLOR,
   SET_NOTES,
   SET_NOTE_TITLE,
+  SET_PRIORITY,
   SET_TAGS,
 } from "../../Constants";
 import { useArchives, useAuth, useNoteDetails, useNotes } from "../../Contexts";
@@ -37,9 +38,9 @@ const NoteContainer = ({ note }) => {
 
   async function handleMoveToTrashNote(note) {
     try {
-      const responce = await noteMoveToTrashService(note, token);
-      if (responce !== undefined && responce.status === 201) {
-        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const response = await noteMoveToTrashService(note, token);
+      if (response !== undefined && response.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: [...response.data.notes] });
       } else {
         throw new Error("Unble to proccess the request");
       }
@@ -50,9 +51,10 @@ const NoteContainer = ({ note }) => {
 
   async function handleDeleteNote(note) {
     try {
-      const responce = await noteDeleteService(note, token);
-      if (responce !== undefined && responce.status === 201) {
-        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const response = await noteDeleteService(note, token);
+      console.log(response);
+      if (response !== undefined && response.status === 200) {
+        noteDispatch({ type: SET_NOTES, payload: [...response.data.notes] });
       } else {
         throw new Error("Unble to proccess the request");
       }
@@ -63,9 +65,9 @@ const NoteContainer = ({ note }) => {
 
   async function hadleNoteBookMark(note) {
     try {
-      const responce = await noteBookMarkService(note, token);
-      if (responce !== undefined && responce.status === 201) {
-        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const response = await noteBookMarkService(note, token);
+      if (response !== undefined && response.status === 201) {
+        noteDispatch({ type: SET_NOTES, payload: [...response.data.notes] });
       } else {
         throw new Error("Unble to proccess the request");
       }
@@ -76,12 +78,12 @@ const NoteContainer = ({ note }) => {
 
   async function handleArchivesNotes(note) {
     try {
-      const responce = await noteArchiveService(note, token);
-      if (responce !== undefined) {
-        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const response = await noteArchiveService(note, token);
+      if (response !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: [...response.data.notes] });
         archivesDispatch({
           type: SET_ARCHIVES,
-          payload: [...responce.data.archives],
+          payload: [...response.data.archives],
         });
       } else {
         throw new Error("Unble to Archive the Note!");
@@ -93,13 +95,13 @@ const NoteContainer = ({ note }) => {
 
   async function handleRestoreFromArchivesNotes(note) {
     try {
-      const responce = await noteRestoreFromArchive(note, token);
-      console.log(responce);
-      if (responce !== undefined) {
-        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const response = await noteRestoreFromArchive(note, token);
+      console.log(response);
+      if (response !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: [...response.data.notes] });
         archivesDispatch({
           type: SET_ARCHIVES,
-          payload: [...responce.data.archives],
+          payload: [...response.data.archives],
         });
       } else {
         throw new Error("Unble to restore the note! ");
@@ -111,11 +113,11 @@ const NoteContainer = ({ note }) => {
 
   async function handleDeleteArchive(note) {
     try {
-      const responce = await noteArchiveDeleteService(note, token);
-      if (responce !== undefined) {
+      const response = await noteArchiveDeleteService(note, token);
+      if (response !== undefined) {
         archivesDispatch({
           type: SET_ARCHIVES,
-          payload: [...responce.data.archives],
+          payload: [...response.data.archives],
         });
       } else {
         throw new Error("Unable to Delete the Note!");
@@ -126,9 +128,9 @@ const NoteContainer = ({ note }) => {
   }
   async function handleRestoreNoteFromTrash(note) {
     try {
-      const responce = await noteRestoreFromTrashService(note, token);
-      if (responce !== undefined) {
-        noteDispatch({ type: SET_NOTES, payload: [...responce.data.notes] });
+      const response = await noteRestoreFromTrashService(note, token);
+      if (response !== undefined) {
+        noteDispatch({ type: SET_NOTES, payload: [...response.data.notes] });
       } else {
         throw new Error("Unable to restore the note!");
       }
@@ -141,6 +143,7 @@ const NoteContainer = ({ note }) => {
     dispatch({ type: SET_NOTE_TITLE, payload: note.noteTitle });
     dispatch({ type: SET_COLOR, payload: note.color });
     dispatch({ type: SET_TAGS, payload: note.tags });
+    dispatch({ type: SET_PRIORITY, payload: note.priority });
     navigate(`/notes/edit/${note._id}`);
   };
 

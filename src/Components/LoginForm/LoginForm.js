@@ -22,11 +22,11 @@ const LoginForm = () => {
         throw new Error("Email or Password could not be empty");
       }
       authDispatch({ type: LOGIN_REQUEST });
-      const responce = await loginService(email, password);
+      const response = await loginService(email, password);
 
-      if (responce !== undefined) {
-        localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
-        localStorage.setItem("AUTH_USER", responce.data.foundUser.email);
+      if (response !== undefined) {
+        localStorage.setItem("AUTH_TOKEN", response.data.encodedToken);
+        localStorage.setItem("AUTH_USER", response.data.foundUser.email);
         authDispatch({
           type: LOGIN_SUCCESS,
         });

@@ -8,7 +8,7 @@ const NoteDetailsProvider = ({ children }) => {
     noteTitle: "",
     color: "",
     inTrash: false,
-    priority: "HIGH",
+    priority: "",
     starred: false,
     tags: [],
   };

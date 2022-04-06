@@ -2,10 +2,10 @@ import axios from "axios";
 
 export const noteDeleteService = async (note, token) => {
   try {
-    const responce = await axios.delete(`/api/notes/${note._id}`, {
+    const response = await axios.delete(`/api/notes/${note._id}`, {
       headers: { authorization: token },
     });
-    return responce;
+    return response;
   } catch (error) {
     console.error(error);
     return;

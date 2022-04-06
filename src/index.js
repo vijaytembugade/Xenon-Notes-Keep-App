@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import {
   ArchivesProvider,
   AuthProvider,
+  FilterProvider,
   NoteDetailsProvider,
   NotesProvider,
   ThemeProvider,
@@ -23,9 +24,11 @@ ReactDOM.render(
         <AuthProvider>
           <NotesProvider>
             <ArchivesProvider>
-              <NoteDetailsProvider>
-                <App />
-              </NoteDetailsProvider>
+              <FilterProvider>
+                <NoteDetailsProvider>
+                  <App />
+                </NoteDetailsProvider>
+              </FilterProvider>
             </ArchivesProvider>
           </NotesProvider>
         </AuthProvider>

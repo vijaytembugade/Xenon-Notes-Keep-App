@@ -32,11 +32,11 @@ const SignupForm = () => {
         throw new Error("Invalid Credentials");
       } else {
         authDispatch({ type: SIGNUP_REQUEST });
-        const responce = await signupService(email, password);
-        console.log(responce);
-        if (responce !== undefined && responce.status === 201) {
-          localStorage.setItem("AUTH_TOKEN", responce.data.encodedToken);
-          localStorage.setItem("AUTH_USER", responce.data.createdUser.email);
+        const response = await signupService(email, password);
+        console.log(response);
+        if (response !== undefined && response.status === 201) {
+          localStorage.setItem("AUTH_TOKEN", response.data.encodedToken);
+          localStorage.setItem("AUTH_USER", response.data.createdUser.email);
           authDispatch({
             type: SIGNUP_SUCCESS,
           });
